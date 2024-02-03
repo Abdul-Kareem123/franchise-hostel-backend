@@ -1,7 +1,7 @@
 "use strict";
 import * as mongoose from 'mongoose';
 import * as config from '../config';
-import { Admin } from '../model/admin.model';
+import { Admin } from '../models/admin.model';
 
 export class mongoconnect {
     connectToDb(): any {

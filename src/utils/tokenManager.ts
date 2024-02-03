@@ -22,7 +22,7 @@ export let CreateJWTToken = (data: any = {}) => {
         tokenData['name'] = data['name']
     }
   
-    const token = jwt.sign(tokenData, 'pixaliveWebalive', { expiresIn: '8h' });
+    const token = jwt.sign(tokenData, 'pixaliveWebalive', { expiresIn: '365D' });
     return token;
 }
 

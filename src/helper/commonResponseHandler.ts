@@ -1,5 +1,5 @@
 import { saveLog } from "../controller/logs.controller";
-import { LogsDocument, Logs } from "../model/logs.model";
+import { LogsDocument, Logs } from "../models/logs.model";
 var nodemailer = require('nodemailer');
 import axios from 'axios';
 
@@ -67,8 +67,8 @@ export const sendEmail = async (req, email, subject?: any, text?: any) => {
 }
 
 /**
- * @author Santhosh Khan K
- * @date 09-10-2023
+ * @author Mohanraj V 
+ * @date 26-09-2023
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
@@ -76,7 +76,7 @@ export const sendEmail = async (req, email, subject?: any, text?: any) => {
  */
 
 export function generate(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let result = '';
         for (let i = 0; i < length; i++) 
         {
@@ -87,8 +87,8 @@ export function generate(length) {
     }
 
     /**
- * @author Santhosh Khan K
- * @date 09-10-2023
+ * @author Mohanraj V 
+ * @date 27-09-2023
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
@@ -130,6 +130,6 @@ export function generate(length) {
                   subject: 'join with us',
                   text: `use my referral code: ${referralCode}`,
                 };
-          await transporter.sendMail(mailOptions);
+          return await transporter.sendMail(mailOptions);
   
   }

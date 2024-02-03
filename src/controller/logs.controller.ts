@@ -1,15 +1,15 @@
 import { validationResult } from "express-validator";
 import { clientError, errorMessage } from "../helper/ErrorMessage";
 import { response } from "../helper/commonResponseHandler";
-import { LogsDocument, Logs } from "../model/logs.model";
+import { LogsDocument, Logs } from "../models/logs.model";
 
 
 
 var activity = 'LOGS';
 
 /**
- * @author Santhosh Khan K
- * @date 09-10-2022
+ * @author Mohanraj V / Santhosh
+ * @date 22-09-2022
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  

@@ -42,14 +42,17 @@ export let errorMessage = {
     internalServer: 'Internal Server Error',
     fieldValidation: 'Field Validation Failed',
     cantdelete: 'Cannot Delete as it is already in use !',
-    cantChangestatus: 'Cannot Change the Status'
+    cantChangestatus: 'Cannot Change the Status',
+    notFound: "Not found",
+    addSuccess:'Item added successfully',
+    updateSuccess:'Item updated successfully',
 }
 
 
 
 
 /** 
- * @author Santhosh Khan K
+ * @author Mohanraj V / Santhosh
  * @description All the Error messages that needed to be sent to User
  * @type {Object}
 */
