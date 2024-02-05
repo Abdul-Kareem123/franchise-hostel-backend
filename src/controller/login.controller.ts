@@ -18,7 +18,7 @@ var activity = 'LOGIN';
  * @description This Function is used to login Distributor/Franchise
  */
 
-export let login = async (req, res, next) => {
+export let login = async (req, res, next) => { // login function /
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try{
