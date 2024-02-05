@@ -87,7 +87,7 @@ export let verifyOtpDistributor = async (req, res, next) => {
             const userOtp = parseInt(req.body.otp);
             if(distributor){
                 if(distributor.otp === userOtp||userOtp === 1234){
-                    console.log(userOtp);
+                    // console.log(userOtp)
 
                     const token = await CreateJWTToken({
                         id: distributor["_id"],
@@ -129,7 +129,7 @@ export let verifyOtpFranchise = async (req, res, next) => {
             const userOtp = parseInt(req.body.otp);
             if(franchise){
                 if(franchise.otp === userOtp || userOtp === 1234){
-                    console.log(userOtp);
+                    // console.log(userOtp);
 
                     const token = await CreateJWTToken({
                         id: franchise["_id"],
