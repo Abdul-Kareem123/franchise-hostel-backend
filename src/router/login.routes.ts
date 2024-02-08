@@ -26,6 +26,12 @@ router.post ('/verifyOtpFranchise',
     checkRequestBodyParams('mobileNumber'),
     checkRequestBodyParams('otp'),
     verifyOtpFranchise);
+
+router.post ('/companyLogin',
+    basicAuthUser,
+    checkRequestBodyParams('mobileNumber'),
+    login);
+
     
 
 export default router;

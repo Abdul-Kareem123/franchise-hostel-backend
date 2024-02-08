@@ -5,7 +5,8 @@ import { CreateJWTToken } from '../utils/tokenManager';
 import { Distributor } from '../models/distributor.model';
 import { Franchise } from "../models/franchise.model";
 // import { sendNotificationSingle } from "./notification.controller";
-import { encrypt,decrypt } from '../helper/Encryption';
+import { encrypt,decrypt } from '../helper/Encryption'
+import { Company } from "../models/company.model";
 
 var activity = 'LOGIN';
 
@@ -18,53 +19,51 @@ var activity = 'LOGIN';
  * @description This Function is used to login Distributor/Franchise
  */
 
-export let login = async (req, res, next) => { // login function /
+
+export let login = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        try{
-            const distributor = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            const franchise = await Franchise.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            if(distributor){
-                let otp = Math.floor(1000 + Math.random() * 9000);
+        try {
+         const distributor = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
+            if (distributor) {
+              let otp = Math.floor(1000 + Math.random() * 9000);
                 distributor.otp = otp;
-                let insertData = await Distributor.findByIdAndUpdate({_id: distributor._id},{
-                    $set: {
-                        otp: distributor.otp,
-                        modifiedOn : distributor.modifiedOn,
-                        modifiedBy : distributor.modifiedBy
-                    }
-                })
-                sendOtp(req.body.mobileNumber,otp);//calling function to send otp
-                const distributorData = await Distributor.findOne({_id:distributor?._id},{mobileNumber:1,otp:1});
-                response(req,res,activity,'Level-2','Login',true,200,distributorData,errorMessage.addSuccess,'otp sent to distributor');
-
-                 }else if(franchise){
-                    if(franchise["status"]===2){
-                        response(req,res,activity,'Level-2','Login',true,422,{},clientError.account.inActive,'Distributor is not found');
-                    }else{
-                        let otp = Math.floor(1000 + Math.random() * 9000);
+                await distributor.save();
+                sendOtp(req.body.mobileNumber, otp);
+             const distributorData = await Distributor.findOne({ _id: distributor._id }, { mobileNumber: 1, otp: 1 });
+                response(req, res, activity, 'Level-2', 'Login', true, 200, distributorData, errorMessage.addSuccess, 'OTP sent to distributor');
+            } else {
+            const franchise = await Franchise.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
+                if (franchise) {
+                    if (franchise.status === 2) {
+                    response(req, res, activity, 'Level-2', 'Login', true, 422, {}, clientError.account.inActive, 'Franchise is not found');
+                    } else {
+                     let otp = Math.floor(1000 + Math.random() * 9000);
                         franchise.otp = otp;
-                        let insertData = await Franchise.findByIdAndUpdate({_id: franchise._id},{
-                            $set: {
-                                otp: franchise.otp,
-                                modifiedOn : franchise.modifiedOn,
-                                modifiedBy : franchise.modifiedBy
-                            }
-                        })
-                        sendOtp(req.body.mobileNumber,otp);//calling function to send otp
-                        const franchiseData = await Franchise.findOne({_id:franchise?._id},{mobileNumber:1,otp:1});
-                        response(req,res,activity,'Level-2','Login',true,200,franchiseData,errorMessage.addSuccess,'otp sent to Franchise');
+                        await franchise.save();
+                    sendOtp(req.body.mobileNumber, otp);
+                    const franchiseData = await Franchise.findOne({ _id: franchise._id }, { mobileNumber: 1, otp: 1 });
+                        response(req, res, activity, 'Level-2', 'Login', true, 200, franchiseData, errorMessage.addSuccess, 'OTP sent to franchise');
                     }
-                    }else{
-                        response(req,res,activity,'Level-2','Login',true,422,{},clientError.account.inActive,'Distributor or Franchise is not found');
+                } else {
+                  const company = await Company.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
+                    if (company) {
+                        let otp = Math.floor(1000 + Math.random() * 9000);
+                        company.otp = otp;
+                        await company.save();
+                    sendOtp(req.body.mobileNumber, otp);
+                    const companyData = await Company.findOne({ _id: company._id }, { mobileNumber: 1, otp: 1 });
+                        response(req, res, activity, 'Level-2', 'Login', true, 200, companyData, errorMessage.addSuccess, 'OTP sent to company');
+                    } else {
+                    response(req, res, activity, 'Level-2', 'Login', true, 422, {}, clientError.account.inActive, 'User not found');
                     }
-
-        }
-        catch(err: any){
-            response(req,res,activity,'Level-3','Login',false,500,{},errorMessage.internalServer, err.message);
+                }
+            }
+        } catch (err: any) {
+         response(req, res, activity, 'Level-3', 'Login', false, 500, {}, errorMessage.internalServer, err.message);
         }
     } else {
-        response(req,res,activity,'Level-3','Login',false,422,{},errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+     response(req, res, activity, 'Level-3', 'Login', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 };
 
