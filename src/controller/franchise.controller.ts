@@ -50,6 +50,5 @@ export const saveFranchise = async (req,res,next) => {
     } else {
         response(req, res, activity,  'Level-3','Save-Franchise', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
-}
-    
-
+}   
+// Hii
