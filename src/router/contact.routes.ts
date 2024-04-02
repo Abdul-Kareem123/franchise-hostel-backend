@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { basicAuthUser } from "../middleware/checkAuth";
-import { contactUs,getAllContactUs } from "../controller/contactus.controller";
+import { contactUs,findSingle,getAllContactUs } from "../controller/contactus.controller";
 import { checkSession } from "../utils/tokenManager";
 const router:Router=Router()
  
@@ -14,6 +14,12 @@ router.get('/',
 basicAuthUser,
 checkSession,
 getAllContactUs
+);
+
+router.get('/singleuser',
+basicAuthUser,
+checkSession,
+findSingle
 );
  
 export default router;

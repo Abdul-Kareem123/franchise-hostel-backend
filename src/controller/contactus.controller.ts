@@ -60,7 +60,7 @@ export let getAllContactUs = async(req,res,next)=>{
  */
 export let findSingle = async( req, res, next ) =>{
     try {
-            const single = await contact.findOne({ _id: req.query.id })
+            const single = await contact.findOne({ _id: req.query._id })
             if (single) {
                 response(req, res, activity, 'Level-2', 'Fetch-user', true, 200, single, clientError.success.fetchedSuccessfully);
             } else {
