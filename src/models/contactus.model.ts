@@ -9,7 +9,12 @@ export interface contactDocument extends mongoose.Document{
     pincode?:number;
     subject?:string;
     message?:string;
-
+    isDeleted?:boolean;
+    createdBy?:any;
+    createdOn?:Date;
+    modifiedOn?:Date;
+    modifiedBy?:any;
+    
 }
 
 const contactSchema = new mongoose.Schema({
@@ -21,7 +26,11 @@ const contactSchema = new mongoose.Schema({
     pincode:{type:Number},
     subject:{type:String},
     message:{type:String},
-    createdon:{type:Date,default:Date.now}
+    isDeleted:{type:Boolean, default:false},
+    createdBy:{type:mongoose.Types.ObjectId},
+    createdOn:{type:Date,default:Date.now},
+    modifiedOn:{type:Date},
+    modifiedBy:{type:mongoose.Types.ObjectId},
    
 })
 
