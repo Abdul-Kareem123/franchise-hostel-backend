@@ -14,8 +14,7 @@ export NVM_DIR="$HOME/.nvm"
 #install node modules
 sudo npm install
 
-# Start our Node app with PM2
-# sudo pm2 start npm --name api -- run dev
+#start our node app in the background
+node server.ts > app.out.log 2> app.err.log < /dev/null & 
 
-# Restart our node app with PM2
-sudo pm2 restart api
+npm run dev
