@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+ 
 export interface contactDocument extends mongoose.Document{
     _id?:any;
     fullName?:string;
@@ -9,14 +9,15 @@ export interface contactDocument extends mongoose.Document{
     pincode?:number;
     subject?:string;
     message?:string;
-    isDeleted?:boolean;
-    createdBy?:any;
-    createdOn?:Date;
-    modifiedOn?:Date;
-    modifiedBy?:any;
-    
-}
+    createdOn?:Date
+    createdBy?:string
+    modifiedOn?:Date
+    modifiedBy?:string
 
+
+
+}
+ 
 const contactSchema = new mongoose.Schema({
     _id:{type:mongoose.Types.ObjectId, auto:true},
     fullName:{type:String },
@@ -26,12 +27,11 @@ const contactSchema = new mongoose.Schema({
     pincode:{type:Number},
     subject:{type:String},
     message:{type:String},
-    isDeleted:{type:Boolean, default:false},
-    createdBy:{type:mongoose.Types.ObjectId},
-    createdOn:{type:Date,default:Date.now},
-    modifiedOn:{type:Date},
-    modifiedBy:{type:mongoose.Types.ObjectId},
+    createdOn: {type: Date},
+    createdBy: {type: String},
+    modifiedOn: {type: Date},
+    modifiedBy: {type: String}
    
 })
-
+ 
 export const contact = mongoose.model("Contact us",contactSchema)
