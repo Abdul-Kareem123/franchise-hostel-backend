@@ -43,7 +43,7 @@ export let contactUs = async(req,res,next)=>{
  */
 export let getSingleUser = async(req,res,next)=>{
 try{
-    const getsingle = await contact.findOne({ $and: [{ isDeleted: false }, { _id: req.query._id }] })
+    const getsingle = await contact.findOne( { _id: req.query._id })
     if (getsingle) {
         response(req, res, activity, 'Level-2', 'Contactus-getSingle', true, 200, getsingle, clientError.success.fetchedSuccessfully);
     } else {
