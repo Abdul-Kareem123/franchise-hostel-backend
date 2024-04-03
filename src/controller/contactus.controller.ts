@@ -71,4 +71,3 @@ export let findSingle = async( req, res, next ) =>{
             response(req, res, activity, 'Level-3', 'Fetch-User', false, 500, {}, errorMessage.internalServer, err.message);
     }
 }
-// hii

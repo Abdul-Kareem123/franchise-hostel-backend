@@ -15,7 +15,7 @@ router.use('/franchise',Franchise);
 router.use('/login',Login);
 router.use('/company',Company);
 router.use('/product',Product);
-router.use('/contact',Contact)
+router.use('/contactus',Contact)
 
 
 
