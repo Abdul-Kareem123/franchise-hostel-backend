@@ -49,3 +49,26 @@ export let getAllContactUs = async(req,res,next)=>{
         response(req,res,activity,"level-3","fetch-allContactUs",false,500,{},errorMessage.internalServer,err.message)
     }
 }
+
+/**
+ * @author Dharani S
+ * @date 02-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to find single user.
+ */
+export let findSingle = async( req, res, next ) =>{
+    try {
+            const single = await contact.findOne({ _id: req.query._id })
+            if (single) {
+                response(req, res, activity, 'Level-2', 'Fetch-user', true, 200, single, clientError.success.fetchedSuccessfully);
+            } else {
+                response(req, res, activity, 'Level-3', 'Fetch-User', true, 422, {}, clientError.user.userDontExist);
+            }
+            } 
+    catch (err) {
+            response(req, res, activity, 'Level-3', 'Fetch-User', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
+// hii
