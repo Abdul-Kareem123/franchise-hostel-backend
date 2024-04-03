@@ -1,25 +1,25 @@
 import { Router } from "express";
 import { basicAuthUser } from "../middleware/checkAuth";
-import { contactUs,findSingle,getAllContactUs } from "../controller/contactUs.controller";
 import { checkSession } from "../utils/tokenManager";
+// import {  } from "";
 const router:Router=Router()
  
-router.post("/",
-basicAuthUser,
-checkSession,
-contactUs
-);
+// router.post("/",
+// basicAuthUser,
+// checkSession,
+// contactUs
+// );
 
-router.get('/',
-basicAuthUser,
-checkSession,
-getAllContactUs
-);
+// router.get('/',
+// basicAuthUser,
+// checkSession,
+// getAllContactUs
+// );
 
-router.get('/singleuser',
-basicAuthUser,
-checkSession,
-findSingle
-);
+// router.get('/singleuser',
+// basicAuthUser,
+// checkSession,
+// findSingle
+// );
  
 export default router;
