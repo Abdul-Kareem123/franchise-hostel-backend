@@ -58,7 +58,7 @@ export let getAllContactUs = async(req,res,next)=>{
  * @param {Function} next  
  * @description This Function is used to find single user.
  */
-export let findSingle = async( req, res, next ) =>{
+export let getSingle = async( req, res, next ) =>{
     try {
             const single = await contact.findOne({ _id: req.query._id })
             if (single) {
