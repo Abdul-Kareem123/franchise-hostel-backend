@@ -16,15 +16,15 @@ var activity="contact us"
  */
  
 export let contactUs = async(req,res,next)=>{
-    const errors = validationResult(req)
-    if(errors.isEmpty){
+const errors = validationResult(req)
+if(errors.isEmpty){
     try {
         const contactDetails:contactDocument = req.body;
         const createData = new contact(contactDetails)
         const insertData = await createData.save()
         response(req,res,activity,'Level-2','Save-Contactus',true,200, insertData,clientError.success.sendSuccessfully)
     }
-  catch (error) {
+    catch (error) {
         response(req,res,activity,'Level-3','Save-Contactus',false,500,{},errorMessage.internalServer,error.message)
     }
 }
