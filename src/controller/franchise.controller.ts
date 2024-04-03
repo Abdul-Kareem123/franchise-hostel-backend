@@ -38,9 +38,9 @@ export const saveFranchise = async (req,res,next) => {
                 result['mobileNumber'] = insertData['mobileNumber'];
                 result['otp'] = insertData['otp'];
                 let finalResult = {};
-                finalResult["loginType"] = "franchise";
-                finalResult["createFranchise"] = result;
-                finalResult["token"] = token;
+                // finalResult["loginType"] = "franchise";
+                // finalResult["createFranchise"] = result;
+                // finalResult["token"] = token;
                 sendOtp(insertData.mobileNumber,insertData.otp)
                 response(req,res,activity,'Level-2','Save-Franchise',true,200,finalResult,clientError.success.savedSuccessfully);
             }
