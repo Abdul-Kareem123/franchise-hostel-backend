@@ -6,7 +6,7 @@ import Franchise from './franchise.routes';
 import Login from './login.routes';
 import Company from './company.routes';
 import Product from './product.routes';
-import Contact  from "./contact.routes";
+import Contact  from "./contactUs.routes";
 
 
 

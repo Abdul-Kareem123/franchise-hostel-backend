@@ -1,7 +1,7 @@
 import { validationResult } from "express-validator";
 import { response } from "../helper/commonResponseHandler";
 import { clientError,errorMessage } from "../helper/ErrorMessage";
-import { contact, contactDocument } from "../models/contactus.model";
+import { contact, contactDocument } from "../models/contactUs.model";
  
 var activity="contact us"
  

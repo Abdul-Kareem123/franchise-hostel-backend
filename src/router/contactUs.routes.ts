@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { basicAuthUser } from "../middleware/checkAuth";
-import { contactUs,findSingle,getAllContactUs } from "../controller/contactus.controller";
+import { contactUs,findSingle,getAllContactUs } from "../controller/contactUs.controller";
 import { checkSession } from "../utils/tokenManager";
 const router:Router=Router()
  
