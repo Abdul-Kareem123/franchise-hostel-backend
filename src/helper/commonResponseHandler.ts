@@ -95,7 +95,7 @@ export function generate(length) {
  * @description This Function is used to send otp on user registration
  */
     export const sendOtp = async (mobileNumber,otp) => {
-        const url = 'https://2factor.in/API/V1/2372fa0e-5edd-11eb-8153-0200cd936042/SMS/+91'+mobileNumber + '/' + otp;
+        const url = 'https://2factor.in/API/V1/2372fa0e-5edd-11eb-8153-0200cd936042/SMS/+91'+mobileNumber + '/' + otp + '/Pixalive OTP Login';
         try {
             const response = await axios.get(url);
         } catch (exception) {

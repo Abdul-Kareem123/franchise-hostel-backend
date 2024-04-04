@@ -3,10 +3,9 @@ import { Distributor,DistributorDocument } from '../models/distributor.model';
 import { response } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import {CreateJWTToken } from '../utils/tokenManager';
-import { sendOtp } from '../helper/commonResponseHandler';
+import { sendOtp,sendEmailOtp } from '../helper/commonResponseHandler';
 
 const activity = 'DISTRIBUTOR';
-
 
 /**
  * @author BalajiMurahari
@@ -16,13 +15,11 @@ const activity = 'DISTRIBUTOR';
  * @param {Function} next  
  * @description This Function is used to save Distributor
  */
-
-
 export const saveDistributor = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const distributorData = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
+            const distributorData = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber}] });
             if (!distributorData) {
                 const createDistributor: DistributorDocument = req.body;
                 const otp = Math.floor(1000 + Math.random() * 9000)
@@ -31,8 +28,8 @@ export const saveDistributor = async (req,res,next) => {
                 const insertData = await createData.save();
                 const token = await CreateJWTToken({ 
                     id: insertData["_id"],
-                    'mobileNumber': insertData['mobileNumber'],
-                    'otp': insertData['otp']
+                    mobileNumber: insertData['mobileNumber'],
+                    otp: insertData['otp']
                  });
                 const result = {};
                 result['_id'] = insertData['_id'];
@@ -40,10 +37,12 @@ export const saveDistributor = async (req,res,next) => {
                 result['otp'] = insertData['otp'];
                 let finalResult = {};
                 finalResult["loginType"] = "distributor";
-                finalResult["createDistributor"] = result;
+                finalResult["distributorDetails"] = result;
                 finalResult["token"] = token;
-                sendOtp(insertData.mobileNumber,insertData.otp)
+                sendOtp(insertData.mobileNumber,insertData.otp) 
                 response(req,res,activity,'Level-2','Save-Distributor',true,200,finalResult,clientError.success.savedSuccessfully);
+            } else {
+                response(req,res,activity,"Level-2","Save-Distributor",false,200,{},clientError.mobile.mobileExist)
             }
         } catch (err: any) {
             response(req,res,activity,'Level-3','Save-Distributor',false,500,{},errorMessage.internalServer, err.message);
