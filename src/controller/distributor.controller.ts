@@ -29,12 +29,12 @@ export const saveDistributor = async (req,res,next) => {
                 const token = await CreateJWTToken({ 
                     id: insertData["_id"],
                     mobileNumber: insertData['mobileNumber'],
-                    otp: insertData['otp']
+                    otp: otp
                  });
                 const result = {};
                 result['_id'] = insertData['_id'];
                 result['mobileNumber'] = insertData['mobileNumber'];
-                result['otp'] = insertData['otp'];
+                result['otp'] = otp
                 let finalResult = {};
                 finalResult["loginType"] = "distributor";
                 finalResult["distributorDetails"] = result;
@@ -49,5 +49,25 @@ export const saveDistributor = async (req,res,next) => {
         }
     } else {
         response(req, res, activity,  'Level-3','Save-Distributor', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+    }
+};
+/**
+ * @author Vinodhagan p
+ * @date 05-04/2024
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @description This function used to getSingleDistributor
+ */
+export let getSingleDistributor = async(req,res,next)=>{
+    try{
+        const getDistributor = await Distributor.findOne({$and:[{isDeleted:false},{_id:req.query._id}]})
+        if(getDistributor){
+            response(req,res,activity,"level-1","fetch-singleDistributor",true,200,getDistributor,clientError.success.fetchedSuccessfully)
+        } else {
+            response(req,res,activity,"level-3","fetch-singleDistributor",false,402,{},clientError.user.UserNotFound)
+        }
+    } catch (err) {
+        response(req,res,activity,"level-3","fetch-singleDistributor",false,500,{},errorMessage.internalServer,err.message)
     }
 };
