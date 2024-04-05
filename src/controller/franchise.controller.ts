@@ -28,7 +28,6 @@ export const saveFranchise = async (req,res,next) => {
                 createFranchise.otp = otp
                 const createData = new Franchise(createFranchise);
                 const insertData = await createData.save();
-                console.log('hlo');
                 const token = await TokenManager.CreateJWTToken({
                     id: insertData["_id"],
                     mobileNumber: insertData['mobileNumber'],
@@ -51,4 +50,4 @@ export const saveFranchise = async (req,res,next) => {
         response(req, res, activity,  'Level-3','Save-Franchise', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 }   
-// Hii
+

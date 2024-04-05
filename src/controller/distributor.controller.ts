@@ -34,7 +34,7 @@ export const saveDistributor = async (req,res,next) => {
                 const result = {};
                 result['_id'] = insertData['_id'];
                 result['mobileNumber'] = insertData['mobileNumber'];
-                result['otp'] = otp
+                result['otp'] = otp;
                 let finalResult = {};
                 finalResult["loginType"] = "distributor";
                 finalResult["distributorDetails"] = result;
@@ -71,3 +71,22 @@ export let getSingleDistributor = async(req,res,next)=>{
         response(req,res,activity,"level-3","fetch-singleDistributor",false,500,{},errorMessage.internalServer,err.message)
     }
 };
+
+
+/**
+ * @author Dharani S
+ * @date 05-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get all Distributor.
+ */
+export const getAllDistributor = async(req,res,next)=>{
+    try{
+      const all = await Distributor.find({isDeleted:false})
+      response(req,res,activity,"level-1","Fetch-All-Distributor",true,200,all,clientError.success.fetchedSuccessfully)
+    } 
+    catch(err){
+        response(req,res,activity,"level-3","Fetch-All-Distributor",false,500,{},errorMessage.internalServer,err.message)
+    }
+}
