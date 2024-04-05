@@ -6,7 +6,7 @@ import { login,verifyOtpDistributor,verifyOtpFranchise } from '../controller/log
 
 const router : Router = Router();
 
-router.post ('/',
+router.post ('/', //distributor login
     basicAuthUser,
     checkRequestBodyParams('mobileNumber'),
     login);

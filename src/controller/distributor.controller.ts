@@ -29,12 +29,12 @@ export const saveDistributor = async (req,res,next) => {
                 const token = await CreateJWTToken({ 
                     id: insertData["_id"],
                     mobileNumber: insertData['mobileNumber'],
-                    otp: insertData['otp']
+                    otp: otp
                  });
                 const result = {};
                 result['_id'] = insertData['_id'];
                 result['mobileNumber'] = insertData['mobileNumber'];
-                result['otp'] = insertData['otp'];
+                result['otp'] = otp;
                 let finalResult = {};
                 finalResult["loginType"] = "distributor";
                 finalResult["distributorDetails"] = result;
@@ -51,3 +51,22 @@ export const saveDistributor = async (req,res,next) => {
         response(req, res, activity,  'Level-3','Save-Distributor', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 };
+
+
+/**
+ * @author Dharani S
+ * @date 05-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get all Distributor.
+ */
+export const getAllDistributor = async(req,res,next)=>{
+    try{
+      const all = await Distributor.find({isDeleted:false})
+      response(req,res,activity,"level-1","Fetch-All-Distributor",true,200,all,clientError.success.fetchedSuccessfully)
+    } 
+    catch(err){
+        response(req,res,activity,"level-3","Fetch-All-Distributor",false,500,{},errorMessage.internalServer,err.message)
+    }
+}
