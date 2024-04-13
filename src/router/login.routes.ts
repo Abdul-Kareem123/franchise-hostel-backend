@@ -1,11 +1,12 @@
 import { Router} from 'express';
 import { checkRequestBodyParams } from '../middleware/Validators';
 import { basicAuthUser } from '../middleware/checkAuth';
+import { checkSession } from "../utils/tokenManager";
 import { login,verifyOtpDistributor,verifyOtpFranchise } from '../controller/login.controller';
 
 const router : Router = Router();
 
-router.post ('/distributorLogin',
+router.post ('/', //distributor login
     basicAuthUser,
     checkRequestBodyParams('mobileNumber'),
     login);
@@ -17,6 +18,7 @@ router.post ('/franchiseLogin',
 
 router.post ('/verifyOtpDistributor',
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('mobileNumber'),
     checkRequestBodyParams('otp'),
     verifyOtpDistributor);

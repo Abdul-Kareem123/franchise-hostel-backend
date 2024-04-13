@@ -1,3 +1,5 @@
+import { Distributor } from "src/models/distributor.model";
+
 export let ErrorMessage = {
     email: {
         required: 'Field is Required',
@@ -77,6 +79,7 @@ export let clientError = Object.freeze({
         mobileNotExist: "No User found for this mobile number",
         alreadyVerifiedEmail: "Your Email is already verified!",
         phoneNotVerified: 'Your email is not verified !',
+        mobileOrEmail:"User already exist for given mobile number or email"
     },
     password: {
         invalidPassword: 'Invalid Password !',
@@ -106,6 +109,7 @@ export let clientError = Object.freeze({
         nameExist: 'Name already exist !',
         fetchedSuccessfully: 'Fetched Successfully !',
         sendSuccessfully: 'Send Successfully',
+        distributor: 'Distributor Logged in Successfully'
     },
     account: {
         deActive: 'Your account is deactived',
