@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
+import { Company } from "./company.model";
 
 export interface DistributorDocument extends mongoose.Document {
     _id?:any;
-    emailAddress?:String;
+    name?:String;
+    email?:String;
     mobileNumber?:Number;
+    companyName?:String;
     productName?:String;
-    typeYourRequirement?:String;
+    address?:String;
+    city?:String;
+    pinCode?:Number;
     otp?:Number;
     status?:Number;
     isDeleted?:Boolean;
@@ -18,10 +23,14 @@ export interface DistributorDocument extends mongoose.Document {
 
 const distributorSchema = new mongoose.Schema({
     _id:{type:mongoose.Types.ObjectId,auto:true},
-    emailAddress:{type:String},
+    name:{type:String},
+    email:{type:String},
     mobileNumber:{type:Number},
+    companyName:{type:String},
     productName:{type:String},
-    typeYourRequirement:{type:String},
+    address:{type:String},
+    city:{type:String},
+    pinCode:{type:Number},
     otp:{type:Number},
     status: {type:Number,default:1},
     isDeleted: {type: Boolean,default: false},
@@ -29,9 +38,6 @@ const distributorSchema = new mongoose.Schema({
     createdBy: {type: String},
     modifiedOn: {type: Date},
     modifiedBy: {type: String},
-    
 })
 
-
 export const Distributor = mongoose.model("Distributor", distributorSchema);
-

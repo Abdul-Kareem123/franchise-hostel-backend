@@ -9,16 +9,12 @@ import Product from './product.routes';
 import ContactUs from './contactUs.routes'
 
 
-
 router.use('/distributor',Distributor);
 router.use('/franchise',Franchise);
 router.use('/login',Login);
 router.use('/company',Company);
 router.use('/product',Product);
 router.use('/contactUs',ContactUs);
-
-
-
 
 
 export default router ;
