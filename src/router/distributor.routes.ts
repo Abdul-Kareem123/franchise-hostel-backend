@@ -8,9 +8,7 @@ import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
 router.post('/', //save distributor
     basicAuthUser,
-    checkRequestBodyParams('emailAddress'),
     checkRequestBodyParams('mobileNumber'),
-    checkRequestBodyParams('productName'),
     saveDistributor);
 
 router.put('/', //update distributor

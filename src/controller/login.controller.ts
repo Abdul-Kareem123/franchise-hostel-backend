@@ -22,7 +22,7 @@ const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
          const distributor = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });    
-            if (distributor !==null) {
+            if (distributor !== null) {
                 let otp = Math.floor(1000 + Math.random() * 9000);
                 distributor.otp = otp;
                 const token = await CreateJWTToken({
