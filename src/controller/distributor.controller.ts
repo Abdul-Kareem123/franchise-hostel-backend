@@ -43,6 +43,7 @@ export const saveDistributor = async (req,res,next) => {
                 sendOtp(insertData.mobileNumber,insertData.otp)
                 response(req,res,activity,'Level-2','Save-Distributor',true,200,finalResult,clientError.success.savedSuccessfully);
             }
+            response(req,res,activity,'Level-2','Save-Distributor',true,200,"",clientError.mobile.mobileExist);
         } catch (err: any) {
             response(req,res,activity,'Level-3','Save-Distributor',false,500,{},errorMessage.internalServer, err.message);
         }
