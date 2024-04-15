@@ -33,5 +33,5 @@ const FranchiseSchema = new mongoose.Schema({
 })
 
 
-export const Franchise = mongoose.model("Franchise", FranchiseSchema);
+export const Franchise = mongoose.model("Franch", FranchiseSchema);
 
