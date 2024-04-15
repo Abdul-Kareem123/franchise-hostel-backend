@@ -59,6 +59,23 @@ export const saveDistributor = async (req,res,next) => {
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
+ * @description This Function is used to get Distributors list
+ */
+export let getAllDistributors = async (req, res, next) => {
+    try {
+        const distributorList = await Distributor.find({ isDeleted: false });
+        response(req, res, activity, 'Level-2', 'Get-Distributor', true, 200, distributorList, clientError.success.success);
+    } catch (err: any) {
+        response(req, res, activity, 'Level-3', 'Get-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
+
+/**
+ * @author Haripriyan K
+ * @date 13-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
  * @description This Function is used to update Distributor
  */
 export let updateDistributor = async (req, res, next) => {
@@ -87,12 +104,3 @@ export let updateDistributor = async (req, res, next) => {
         response(req, res, activity, 'Level-3', 'Update-Distributor', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 }
-
-/**
- * @author Haripriyan K
- * @date 13-04-2024
- * @param {Object} req 
- * @param {Object} res 
- * @param {Function} next  
- * @description This Function is used to get Distributor list
- */
