@@ -89,7 +89,7 @@ export let clientError = Object.freeze({
         otpSent: 'OTP has been sent successfully',
         otpExpired: 'Entered OTP has been expired',
         otpDoestMatch: 'Invalid OTP',
-        otpVerifySuccess: 'OTP is successfully verified',
+        otpVerifySuccess: 'OTP is verified successfully',
         changePasswod: 'Current password is wrong..!',
     },
     success: {
@@ -109,7 +109,8 @@ export let clientError = Object.freeze({
         nameExist: 'Name already exist !',
         fetchedSuccessfully: 'Fetched Successfully !',
         sendSuccessfully: 'Send Successfully',
-        distributor: 'Distributor Logged in Successfully'
+        distributor: 'Distributor Logged in Successfully',
+        franchiser: 'Franchiser Logged in Successfully'
     },
     account: {
         deActive: 'Your account is deactived',
