@@ -16,7 +16,6 @@ router.get('/', //get all distributor
 
 router.put('/', //update distributor
     basicAuthUser,
-    checkSession,
     checkRequestBodyParams('_id'),
     updateDistributor);
 
