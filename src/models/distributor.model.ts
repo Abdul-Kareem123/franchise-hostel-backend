@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
-import { Company } from "./company.model";
+// Get current UTC time in milliseconds
+const utcTime = Date.now();
+
+// Calculate the offset for IST (UTC + 5 hours 30 minutes)
+const offset = 5.5 * 60 * 60 * 1000;
+
+// Convert UTC time to IST
+export const istTime = new Date(utcTime + offset);
+
+// Display the time in IST
+// console.log(istTime);
 
 export interface DistributorDocument extends mongoose.Document {
     _id?:any;
@@ -34,7 +44,7 @@ const distributorSchema = new mongoose.Schema({
     otp:{type:Number},
     status: {type:Number,default:1},
     isDeleted: {type: Boolean,default: false},
-    createdOn: {type: Date},
+    createdOn: {type: Date,default:istTime},
     createdBy: {type: String},
     modifiedOn: {type: Date},
     modifiedBy: {type: String},

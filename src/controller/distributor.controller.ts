@@ -5,8 +5,9 @@ import { response } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
+import { istTime } from '../models/distributor.model';
 
-const activity = 'Distributor';
+const activity = 'DISTRIBUTOR';
 
 /**
  * @author Haripriyan K / BalajiMurahari
@@ -92,7 +93,9 @@ export let updateDistributor = async (req, res, next) => {
                         name: distributorDetails.name,
                         mobileNumber: distributorDetails.mobileNumber,
                         address: distributorDetails.address,
-                        city: distributorDetails.city
+                        city: distributorDetails.city,
+                        modifiedOn: istTime,
+                        modifiedBy: distributorDetails.name
                     }
                 })
                 response(req, res, activity, 'Level-2', 'Update-Distributor', true, 200, insertDistributor, clientError.success.updateSuccess);

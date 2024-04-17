@@ -4,6 +4,7 @@ import { response } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
+import { istTime } from '../models/franchise.model';
 
 const activity = 'FRANCHISE';
 
@@ -16,7 +17,6 @@ const activity = 'FRANCHISE';
  * @param {Function} next  
  * @description This Function is used to save Franchise
  */
-
 export const saveFranchise = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
