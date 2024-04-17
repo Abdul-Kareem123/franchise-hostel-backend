@@ -104,3 +104,24 @@ export let updateDistributor = async (req, res, next) => {
         response(req, res, activity, 'Level-3', 'Update-Distributor', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 }
+
+/**
+ * @author Haripriyan K
+ * @date 17-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get single Distributor.
+ */
+export let getSingleDistributor = async (req, res, next) => {
+    try {
+        const single = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.query._id }] })
+        if (single) {
+            response(req, res, activity, 'Level-2', 'Get-Distributor', true, 200, single, clientError.success.fetchedSuccessfully);
+        } else {
+            response(req, res, activity, 'Level-3', 'Get-Distributor', true, 422, {}, clientError.user.userDontExist);
+        }
+    } catch (err) {
+        response(req, res, activity, 'Level-3', 'Get-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
