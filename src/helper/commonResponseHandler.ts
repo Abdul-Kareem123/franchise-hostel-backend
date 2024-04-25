@@ -133,3 +133,17 @@ export function generate(length) {
           return await transporter.sendMail(mailOptions);
   
   }
+
+  export function convertUTCToIST(date) {
+    // Parse the UTC timestamp string
+    const utcDate = new Date(date);
+
+    // Convert UTC time to IST
+    const ISTOffset = 5.5; // IST offset is 5 hours 30 minutes ahead of UTC
+    const ISTTime = new Date(utcDate.getTime() + (ISTOffset * 3600000));
+
+    // Format the IST time string
+    // const ISTTimeString = ISTTime.toISOString().replace('T', ' ').replace('Z', '+05:30');
+
+    return ISTTime;
+}

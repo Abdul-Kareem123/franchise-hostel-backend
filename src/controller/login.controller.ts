@@ -47,31 +47,31 @@ const errors = validationResult(req);
                 finalResult["token"] = token;
                 sendOtp(req.body.mobileNumber, otp);
                 response(req, res, activity, 'Level-2', 'Login', true, 200, finalResult, clientError.otp.otpSent, 'OTP sent to distributor')
-            } else if (franchise !== null) {
-                let otp = Math.floor(1000 + Math.random() * 9000);
-                franchise.otp = otp;
-                const token = await TokenManager.CreateJWTToken({
-                    id: franchise["_id"],
-                    mobileNumber: franchise["mobileNumber"]
-                });
-                const update = await Franchise.findByIdAndUpdate({_id:franchise._id},{
-                    $set:{
-                        bearer_Token:token,
-                        otp:otp
-                    }
-                });
-                const result = {};
-                result['_id'] = franchise['_id'];
-                result['mobileNumber'] = franchise['mobileNumber'];
-                result['otp'] = otp;
-                let finalResult = {};
-                finalResult["loginType"] = "franchise";
-                finalResult["franchiseDetails"] = result;
-                finalResult["token"] = token;
-                sendOtp(req.body.mobileNumber, otp);
-                response(req, res, activity, 'Level-2', 'Login', true, 200, finalResult, clientError.otp.otpSent, 'OTP sent to Franchiser')
-            } else {
-                response(req, res, activity, 'Level-3', 'Login', false, 402, {}, clientError.mobile.mobileNotExist);
+            // } else if (franchise !== null) {
+            //     let otp = Math.floor(1000 + Math.random() * 9000);
+            //     franchise.otp = otp;
+            //     const token = await TokenManager.CreateJWTToken({
+            //         id: franchise["_id"],
+            //         mobileNumber: franchise["mobileNumber"]
+            //     });
+            //     const update = await Franchise.findByIdAndUpdate({_id:franchise._id},{
+            //         $set:{
+            //             bearer_Token:token,
+            //             otp:otp
+            //         }
+            //     });
+            //     const result = {};
+            //     result['_id'] = franchise['_id'];
+            //     result['mobileNumber'] = franchise['mobileNumber'];
+            //     result['otp'] = otp;
+            //     let finalResult = {};
+            //     finalResult["loginType"] = "franchise";
+            //     finalResult["franchiseDetails"] = result;
+            //     finalResult["token"] = token;
+            //     sendOtp(req.body.mobileNumber, otp);
+            //     response(req, res, activity, 'Level-2', 'Login', true, 200, finalResult, clientError.otp.otpSent, 'OTP sent to Franchiser')
+            // } else {
+            //     response(req, res, activity, 'Level-3', 'Login', false, 402, {}, clientError.mobile.mobileNotExist);
             } 
         } catch(err){
             response(req, res, activity, 'Level-3', 'Login', false, 500, {},errorMessage.internalServer, err.message)
@@ -110,22 +110,22 @@ const errors = validationResult(req);
                 } else {
                     response(req,res,activity,'Level-3','Verify-Otp',false,401,{},clientError.otp.otpDoestMatch);
                 }
-            } else if (franchiser) {
-                if(franchiser.otp === userOtp||userOtp === 1122){
-                    const token = await TokenManager.CreateJWTToken({
-                        id: franchiser["_id"],
-                        mobileNumber: franchiser["mobileNumber"]
-                    });
-                    let finalResult = {};
-                    finalResult["loginType"] = "franchiser";
-                    finalResult["franchiserDetails"] = franchiser;
-                    finalResult["token"] = token;
-                    response(req,res,activity,'Level-2','Verify-Otp',true,200,finalResult,clientError.otp.otpVerifySuccess, 'Franchiser logged in successfully');
-                } else {
-                    response(req,res,activity,'Level-3','Verify-Otp',false,401,{},clientError.otp.otpDoestMatch);
-                }
-            } else {
-                response(req,res,activity,"level-3","verify-Otp",false,402,{},clientError.user.UserNotFound)
+            // } else if (franchiser) {
+            //     if(franchiser.otp === userOtp||userOtp === 1122){
+            //         const token = await TokenManager.CreateJWTToken({
+            //             id: franchiser["_id"],
+            //             mobileNumber: franchiser["mobileNumber"]
+            //         });
+            //         let finalResult = {};
+            //         finalResult["loginType"] = "franchiser";
+            //         finalResult["franchiserDetails"] = franchiser;
+            //         finalResult["token"] = token;
+            //         response(req,res,activity,'Level-2','Verify-Otp',true,200,finalResult,clientError.otp.otpVerifySuccess, 'Franchiser logged in successfully');
+            //     } else {
+            //         response(req,res,activity,'Level-3','Verify-Otp',false,401,{},clientError.otp.otpDoestMatch);
+            //     }
+            // } else {
+            //     response(req,res,activity,"level-3","verify-Otp",false,402,{},clientError.user.UserNotFound)
             }
         } catch(err: any){
             response(req,res,activity,'Level-3','Verify-Otp',false,500,{},errorMessage.internalServer, err.message);

@@ -1,16 +1,15 @@
 import { validationResult } from 'express-validator';
-import { Distributor,DistributorDocument } from '../models/distributor.model';
+import { Distributor, DistributorDocument } from '../models/distributor.model';
 import { Franchise } from '../models/franchise.model';
-import { response } from '../helper/commonResponseHandler';
+import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
-import { istTime } from '../models/distributor.model';
 
 const activity = 'DISTRIBUTOR';
 
 /**
- * @author Haripriyan K / BalajiMurahari
+ * @author Haripriyan K
  * @date 13-04-2024
  * @param {Object} req 
  * @param {Object} res 
@@ -22,9 +21,10 @@ export const saveDistributor = async (req,res,next) => {
     if (errors.isEmpty()) {
         try {
             const distributorData = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            const franchiseData = await Franchise.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            if (!distributorData && !franchiseData) {
+            if (!distributorData) {
                 const distributorDetails: DistributorDocument = req.body;
+                const date = new Date(); 
+                distributorDetails.createdOn = convertUTCToIST(date);
                 const otp = Math.floor(1000 + Math.random() * 9000)
                 distributorDetails.otp = otp;
                 const createData = new Distributor(distributorDetails);
@@ -84,9 +84,9 @@ export let updateDistributor = async (req, res, next) => {
     if (errors.isEmpty()) {
         try {
             const distributorDetails: DistributorDocument = req.body;
-            const distributorData = await Distributor.findOne({ $and: [ { _id: { $ne: distributorDetails._id }}, { mobileNumber: distributorDetails.mobileNumber }, { isDeleted: false }] });
-            const franchiseData = await Franchise.findOne({ $and: [ { mobileNumber: distributorDetails.mobileNumber }, { isDeleted: false }] });
-            if (!distributorData && !franchiseData) {
+            const date = new Date(); 
+            const distributorData = await Distributor.findOne({ $and: [ { _id: distributorDetails._id }, { isDeleted: false }] });
+            if (!distributorData) {
                 const updateDistributor = new Distributor(distributorDetails) 
                 let insertDistributor = await updateDistributor.updateOne({
                     $set: {
@@ -94,7 +94,7 @@ export let updateDistributor = async (req, res, next) => {
                         mobileNumber: distributorDetails.mobileNumber,
                         address: distributorDetails.address,
                         city: distributorDetails.city,
-                        modifiedOn: istTime,
+                        modifiedOn: convertUTCToIST(date),
                         modifiedBy: distributorDetails.name
                     }
                 })

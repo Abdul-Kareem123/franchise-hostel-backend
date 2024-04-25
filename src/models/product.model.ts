@@ -78,7 +78,6 @@ const productSchema = new mongoose.Schema({
     modifiedOn: { type: Date },
     modifiedBy: { type: String },
     createdAt: { type: Date, default: Date.now, index: true },
-
 });
 
 export const Product = mongoose.model("Product", productSchema);

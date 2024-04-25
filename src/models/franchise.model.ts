@@ -1,48 +1,45 @@
 import mongoose from "mongoose";
-// Get current UTC time in milliseconds
-const utcTime = Date.now();
-
-// Calculate the offset for IST (UTC + 5 hours 30 minutes)
-const offset = 5.5 * 60 * 60 * 1000;
-
-// Convert UTC time to IST
-export const istTime = new Date(utcTime + offset);
-
-// Display the time in IST
-// console.log(istTime);
 
 export interface FranchiseDocument extends mongoose.Document {
-    _id?:any;
-    emailAddress?:String;
-    mobileNumber?:Number;
-    productName?:String;
-    typeYourRequirement?:String;
-    otp?:Number;
-    status?:Number;
-    isDeleted?:Boolean;
-    createdOn?:Date;
-    createdBy?:String;
-    modifiedOn?:Date;
-    modifiedBy?:String;
+    _id: any;
+    distributorId: any;
+    name: string;
+    category: string;
+    location: string;
+    description: string;
+    image: string;
+    rateOfInterest: number;
+    investmentAmount: number;
+    specialFeatures: string;
+    mobileNumber: number;
+    emailAddress: string;
+    status: number;
+    isDeleted: boolean;
+    createdOn: Date;
+    createdBy: string;
+    modifiedOn: Date;
+    modifiedBy: string
 }
 
-
 const FranchiseSchema = new mongoose.Schema({
-    _id:{type:mongoose.Types.ObjectId,auto:true},
-    emailAddress:{type:String },
-    mobileNumber:{type:Number},
-    productName:{type:String},
-    typeYourRequirement:{type:String},
-    otp:{type:Number},
-    status: {type:Number,default:1},
-    isDeleted: {type: Boolean,default: false},
-    createdOn: {type: Date,default:istTime},
-    createdBy: {type: String},
-    modifiedOn: {type: Date},
-    modifiedBy: {type: String},
-    
+    _id: { type: mongoose.Types.ObjectId, auto:true },
+    distributorId: { type: mongoose.Types.ObjectId, ref:"Distributor" },
+    name: { type: String },
+    category: { type: String },
+    location: { type: String },
+    description: { type: String },
+    image: { type: String },
+    rateOfInterest: { type: Number },
+    investmentAmount: { type: Number },
+    specialFeatures: { type: String },
+    mobileNumber: { type: Number },
+    emailAddress: { type: String },
+    status: { type: Number, default: 1 },
+    isDeleted: { type: Boolean, default: false },
+    createdOn: { type: Date },
+    createdBy: { type: String },
+    modifiedOn: { type: Date },
+    modifiedBy: { type: String }
 })
 
-
-export const Franchise = mongoose.model("Franch", FranchiseSchema);
-
+export const Franchise = mongoose.model("Franchise", FranchiseSchema);
