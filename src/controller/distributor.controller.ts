@@ -1,10 +1,12 @@
 import { validationResult } from 'express-validator';
 import { Distributor, DistributorDocument } from '../models/distributor.model';
 import { Franchise } from '../models/franchise.model';
+import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
+import { error } from 'console';
 
 const activity = 'DISTRIBUTOR';
 
@@ -127,4 +129,66 @@ export let getSingleDistributor = async (req, res, next) => {
     } catch (err) {
         response(req, res, activity, 'Level-3', 'Get-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
     }
+}
+
+/**
+ * @author Haripriyan K
+ * @date 30-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to create Brands.
+ */
+export const saveBrand = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            const brandData = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
+            if (!brandData) {
+                response(req, res, activity, 'Level-3', 'Save-Brand', true, 422, {}, clientError.user.userDontExist);
+            } else {
+            const brandData : BrandDocument = req.body;
+            const date = new Date();
+            brandData.createdOn = convertUTCToIST(date);
+            const createBrand = new Brand(brandData);
+            const result = await createBrand.save();
+            response(req, res, activity, 'Level-2', 'Save-Brand', true, 200, result, clientError.success.success);
+            }
+        } catch (error) {
+            response(req, res, activity, 'Level-3', 'Save-Brand', false, 500, {}, errorMessage.internalServer, error.message);
+        }
+    } else {
+        response(req, res, activity, 'Level-3', 'Save-Brand', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+    }
+}
+
+/**
+ * @author Haripriyan K
+ * @date 30-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get Brands.
+ */
+export const getBrands = async (req, res, next) => {
+    try {
+        const brands = await Brand.find({isDeleted:false}).sort({_id:-1}).limit(16)
+        if (brands) {
+            response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
+        }
+    } catch (error) {
+        response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
+    }
+}
+
+/**
+ * @author Haripriyan K
+ * @date 30-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get Brands by distributor.
+ */
+export const getBrandsByDistributor = async (req, res, next) => {
+    
 }
