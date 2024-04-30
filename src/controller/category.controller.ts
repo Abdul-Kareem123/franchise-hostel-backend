@@ -1,26 +1,25 @@
 import { validationResult } from 'express-validator';
-import { response } from '../helper/commonResponseHandler';
+import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import { Category, CategoryDocument } from '../models/category.model';
 
-
-
-var activity = "Category";
+var activity = "CATEGORY";
 
 /**
- * @author BalajiMurahari
- * @date 07-02-2024
+ * @author Haripriyan K
+ * @date 29-04-2024
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
- * @description This Function is use to Create Category
+ * @description This Function is use to Create Category.
  */
-
 export const addCategory = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
             const createCategory: CategoryDocument = req.body;
+            const date = new Date();
+            createCategory.createdOn = convertUTCToIST(date);
             const createdCategory = new Category(createCategory);
             const insertData = await createdCategory.save();
             response(req, res, activity, 'Level-2', 'Add-Category', true, 200, insertData, clientError.success.fetchedSuccessfully, 'Category added successfully');
@@ -32,95 +31,48 @@ export const addCategory = async (req, res, next) => {
     }
 };
 
-  /**
- * @author BalajiMurahari
- * @date  07-02-2024
+/**
+ * @author Haripriyan K
+ * @date  30-04-2024
  * @param {Object} req
  * @param {Object} res
  * @param {Function} next
- * @description This Function is used to get the category
+ * @description This Function is used to get the category.
  * */
-
-  export const getCategories = async (req, res, next) => {
+export const getCategories = async (req, res, next) => {
     try {
       const categories = await Category.find({isDeleted:false});
       response(req, res, activity, 'Level-2', 'Get-Categories', true, 200, categories, clientError.success.fetchedSuccessfully, 'Categories fetched successfully');
     } catch (error) {
       response(req, res, activity, 'Level-3', 'Get-Categories', false, 500, {}, errorMessage.internalServer, error.message);
     }
-  };
+};
 
-
-  /**
- * @author BalajiMurahari
- * @date 07-02-2024
+/**
+ * @author Haripriyan K
+ * @date  30-04-2024
  * @param {Object} req
  * @param {Object} res
  * @param {Function} next
- * @description This Function is used to get a single Category by ID
- */
-
-export let getCategoryById = async (req, res, next) => {
-    try{
-        const data = await Category.findOne({ _id: req.query._id });
-        response(req, res, activity, 'Level-2', 'Get-Category', true, 200, data, clientError.success.fetchedSuccessfully, 'Category fetched successfully');
-    }catch(err){
-        response(req, res, activity, 'Level-3', 'Get-Category', false, 500, {}, errorMessage.internalServer, err.message);
-    }
-    }
-
-
-    /**
- * @author BalajiMurahari
- * @date 07-02-2024
- * @param {Object} req
- * @param {Object} res
- * @param {Function} next
- * @description This Function is used to update Category
- */
-
-    export const updateCategory = async (req, res, next) => {
-        try{
-            const categoryData : CategoryDocument = req.body;
-            const updateData = await Category.findByIdAndUpdate({_id:req.body._id},{
+ * @description This Function is used to update the category.
+ * */
+export const updateCategory = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            const updateCategory : CategoryDocument = req.body;
+            const date = new Date(); 
+            const update = await Category.findByIdAndUpdate({ _id: updateCategory._id }, {
                 $set:{
-                    categoryName : categoryData.categoryName,
-                    categoryImage : categoryData.categoryImage,
-                 
-                }
-        })
-        response(req, res, activity, 'Level-2', 'Update-Category', true, 200, updateData, clientError.success.fetchedSuccessfully, 'Category updated successfully');
-        }catch(err:any){
+                categoryName: req.body.categoryName,
+                categoryImage: req.body.categoryImage,
+                modifiedOn: convertUTCToIST(date) }
+            });
+            response(req, res, activity, 'Level-2', 'Update-Category', true, 200, update, clientError.success.fetchedSuccessfully, 'Category updated successfully');
+        } catch (err) {
             response(req, res, activity, 'Level-3', 'Update-Category', false, 500, {}, errorMessage.internalServer, err.message);
-        }
-            
-        };
-    
-
- /**
- * @author BalajiMurahari
- * @date 07-02-2024
- * @param {Object} req 
- * @param {Object} res 
- * @param {Function} next  
- * @description This Function is used to delete Category
- */
-export let deleteCategory = async (req, res, next) => {
-    try{
-        let id = req.query._id;
-        let {modifiedBy,modifiedOn} = req.body;
-        const data = await Category.findByIdAndUpdate({_id:id},
-            {$set:{isDeleted:true,
-             modifiedBy:modifiedBy,
-             modifiedOn:modifiedOn
-    }
-});
-response(req, res, activity, 'Level-2', 'Delete-Category', true, 200, data, clientError.success.deleteSuccess);
-    }catch(err:any){
-        response(req, res, activity, 'Level-3', 'Delete-Category', false, 500, {}, errorMessage.internalServer, err.message);
-    }
+    }}
 }
-
 
 /**
  * @author BalajiMurahari
@@ -130,11 +82,8 @@ response(req, res, activity, 'Level-2', 'Delete-Category', true, 200, data, clie
  * @param {Function} next  
  * @description This Function is used to get Filtered Category
  */
-
-
 export let getFilteredCategory = async (req, res, next) => {
     try {
-
         var findQuery;
         var andList: any = []
         var limit = req.body.limit ? req.body.limit : 0;
@@ -152,7 +101,3 @@ export let getFilteredCategory = async (req, res, next) => {
         response(req, res, activity, 'Level-3', 'Get-FilterCategory', false, 500, {}, errorMessage.internalServer, err.message);
     }
 };
-
-
-
-

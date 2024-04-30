@@ -1,47 +1,26 @@
-import {Router} from 'express';
-import {  addCategory,getCategories,updateCategory,deleteCategory,getCategoryById,getFilteredCategory} from '../controller/category.controller';
+import { Router } from 'express';
+import { addCategory,getCategories,getFilteredCategory,updateCategory } from '../controller/category.controller';
 import { checkQuery, checkRequestBodyParams } from '../middleware/Validators';
 import { basicAuthUser } from '../middleware/checkAuth';
 import { checkSession } from '../utils/tokenManager';
 const router:Router=Router();
 
-router.post('/',
+router.post('/', // create category
     basicAuthUser,
-    checkSession,
-    addCategory
-);
+    // checkSession,
+    addCategory);
 
-router.get('/', //getall
+router.get('/', // get all category
     basicAuthUser,
-    getCategories
-);
+    getCategories);
 
-router.put('/',
+router.put('/', // update category
     basicAuthUser,
-    checkSession,
-    checkRequestBodyParams('name'),
-    updateCategory
-);
-
-router.delete('/',
-    basicAuthUser,
-    checkSession,
-    checkQuery('_id'),
-    deleteCategory
-);
-
-router.get('/getSingleCategory',
-    basicAuthUser,
-    checkQuery('_id'),
-    getCategoryById
-);
-
+    checkRequestBodyParams('_id'),
+    updateCategory);
 
 router.put('/getFilterCategory',
     basicAuthUser,
-    getFilteredCategory
-    );
-
-
+    getFilteredCategory);
 
 export default router;
