@@ -86,7 +86,7 @@ export let updateDistributor = async (req, res, next) => {
             const distributorDetails: DistributorDocument = req.body;
             const date = new Date(); 
             const distributorData = await Distributor.findOne({ $and: [ { _id: distributorDetails._id }, { isDeleted: false }] });
-            if (!distributorData) {
+            if (distributorData) {
                 const updateDistributor = new Distributor(distributorDetails) 
                 let insertDistributor = await updateDistributor.updateOne({
                     $set: {
