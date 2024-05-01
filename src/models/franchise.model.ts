@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
+import { Brand } from "./brand.model";
 
 export interface FranchiseDocument extends mongoose.Document {
     _id: any;
     distributorId: any;
     name: string;
     category: string;
+    subCategory: string;
+    brand: string
     location: string;
     description: string;
     image: string;
@@ -12,7 +15,7 @@ export interface FranchiseDocument extends mongoose.Document {
     investmentAmount: number;
     specialFeatures: string;
     mobileNumber: number;
-    emailAddress: string;
+    email: string;
     status: number;
     isDeleted: boolean;
     createdOn: Date;
@@ -26,6 +29,8 @@ const FranchiseSchema = new mongoose.Schema({
     distributorId: { type: mongoose.Types.ObjectId, ref:"Distributor" },
     name: { type: String },
     category: { type: String },
+    subCategory: { type: String },
+    brand: [{ type: String }],
     location: { type: String },
     description: { type: String },
     image: { type: String },
@@ -33,7 +38,7 @@ const FranchiseSchema = new mongoose.Schema({
     investmentAmount: { type: Number },
     specialFeatures: { type: String },
     mobileNumber: { type: Number },
-    emailAddress: { type: String },
+    email: { type: String },
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },

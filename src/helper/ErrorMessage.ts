@@ -1,4 +1,5 @@
 import { Distributor } from "src/models/distributor.model";
+import { Franchise } from "src/models/franchise.model";
 
 export let ErrorMessage = {
     email: {
@@ -127,7 +128,20 @@ export let clientError = Object.freeze({
         sessionExpire: 'Session Expired!',
         unauthRoute: 'User is not authorized to Access the resource',
     },
-
+    Brand: {
+        brandExist: 'Brand already exist !',
+        brandNotExist: 'Brand does not exist !',
+        brandAdded: 'Brand Added Successfully',
+        brandUpdated: 'Brand Updated Successfully',
+        brandDelete: 'Brand Deleted Successfully',
+    },
+    Franchise: {
+        FranchiseExist: 'Franchise already exist !',
+        FranchiseNotExist: 'Franchise does not exist !',
+        FranchiseAdded: 'Franchise Added Successfully',
+        FranchiseUpdated: 'Franchise Updated Successfully',
+        FranchiseDelete: 'Franchise Deleted Successfully',
+    },
     code: {
         successCode: 200
     }
