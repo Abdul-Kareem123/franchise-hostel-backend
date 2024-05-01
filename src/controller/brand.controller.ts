@@ -92,7 +92,6 @@ export const updateBrand = async (req, res, next) => {
             } else {
                 const brandData : BrandDocument = req.body;
                 const date = new Date();
-                brandData.modifiedOn = convertUTCToIST(date);
                 const updateBrand = await Brand.findByIdAndUpdate({ _id: brandData._id }, {
                     $set: {
                         name: brandData.name,

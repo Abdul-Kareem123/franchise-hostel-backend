@@ -13,7 +13,6 @@ export interface FranchiseDocument extends mongoose.Document {
     rateOfInterest: number;
     investmentAmount: number;
     specialFeatures: string;
-    mobileNumber: number;
     email: string;
     status: number;
     isDeleted: boolean;
@@ -36,7 +35,6 @@ const FranchiseSchema = new mongoose.Schema({
     rateOfInterest: { type: Number },
     investmentAmount: { type: Number },
     specialFeatures: { type: String },
-    mobileNumber: { type: Number },
     email: { type: String },
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },

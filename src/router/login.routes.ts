@@ -8,7 +8,6 @@ const router : Router = Router();
 
 router.post ('/', //distributor login
     basicAuthUser,
-    checkSession,
     checkRequestBodyParams('mobileNumber'),
     login);
 
