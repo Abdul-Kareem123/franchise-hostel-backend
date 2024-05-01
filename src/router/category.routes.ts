@@ -12,15 +12,18 @@ router.post('/', // create category
 
 router.get('/', // get all category
     basicAuthUser,
+    // checkSession,
     getCategories);
 
 router.put('/', // update category
     basicAuthUser,
+    // checkSession,
     checkRequestBodyParams('_id'),
     updateCategory);
 
 router.put('/getFilterCategory',
     basicAuthUser,
+    // checkSession,
     getFilteredCategory);
 
 export default router;

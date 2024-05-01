@@ -11,6 +11,7 @@ export interface DistributorDocument extends mongoose.Document {
     city?: String;
     pinCode?: Number;
     otp?: Number;
+    bearer_Token?: String;
     status?: Number;
     isDeleted?: Boolean;
     createdOn?: Date;
@@ -30,6 +31,7 @@ const distributorSchema = new mongoose.Schema({
     city: { type: String },
     pinCode:{ type: Number },
     otp: { type: Number },
+    bearer_Token: { type: String },
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },

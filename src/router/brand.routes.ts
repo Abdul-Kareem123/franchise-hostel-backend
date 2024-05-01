@@ -7,25 +7,30 @@ import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
 router.post('/', //save brand
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('distributorId'),
     createBrand);
 
 router.get('/', //get brands
     basicAuthUser,
+    checkSession,
     getBrands);
 
 router.get('/getBrandsByDistributorId', //get brands by Distributor Id
     basicAuthUser, 
+    checkSession,
     checkQuery('distributorId'), 
     getBrandsByDistributor);
 
 router.put('/', //update brand
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('_id'),
     updateBrand);
 
 router.delete('/', //delete brand
     basicAuthUser,
+    checkSession,
     checkQuery('_id'),
     deleteBrand);
 

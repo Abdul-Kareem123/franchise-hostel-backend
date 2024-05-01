@@ -7,20 +7,24 @@ import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
 router.post('/', //save distributor
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('mobileNumber'),
     createDistributor);
 
 router.get('/', //get all distributor
     basicAuthUser,
+    checkSession,
     getAllDistributors);
 
 router.put('/', //update distributor
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('_id'),
     updateDistributor);
 
 router.get('/singleDistributor', //get single distributor
     basicAuthUser,
+    checkSession,
     checkQuery('_id'),
     getSingleDistributor);
 

@@ -7,6 +7,7 @@ import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
 router.post ('/', //save distributor
     basicAuthUser,
+    checkSession,
     checkRequestBodyParams('distributorId'),
     createFranchise);
 

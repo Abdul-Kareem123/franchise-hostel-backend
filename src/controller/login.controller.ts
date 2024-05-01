@@ -19,11 +19,11 @@ var activity = 'LOGIN';
  * @description This Function is used to login Distributor/Franchiser
  */
 export let login = async (req, res, next) => {
-const errors = validationResult(req);
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
          const distributor = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] }); 
-         const franchise = await Franchise.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });   
+        //  const franchise = await Franchise.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });   
             if (distributor !== null) {
                 let otp = Math.floor(1000 + Math.random() * 9000);
                 distributor.otp = otp;
@@ -90,7 +90,7 @@ const errors = validationResult(req);
  * @description This Function is used to verify otp for distributor/franchiser
  */
 export let verifyOtp = async (req, res, next) => {
-const errors = validationResult(req);
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
             const distributor = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
