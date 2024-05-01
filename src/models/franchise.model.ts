@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Brand } from "./brand.model";
 
 export interface FranchiseDocument extends mongoose.Document {
     _id: any;
