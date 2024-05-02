@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router:Router = Router();
-import { createFranchise, getAllFranchise, getFranchiseByDistributor } from "../controller/franchise.controller";
+import { createFranchise, getAllFranchise, getFranchiseByDistributor, updateFranchise } from "../controller/franchise.controller";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
@@ -21,5 +21,10 @@ router.get('/getFranchiseByDistributorId', //get Franchise by Distributor Id
     checkSession, 
     checkQuery('distributorId'),
     getFranchiseByDistributor);
+
+router.put('/', //update Franchise
+    basicAuthUser,
+    checkSession,
+    updateFranchise);
 
 export default router;

@@ -94,7 +94,7 @@ export const updateFranchise = async (req,res,next) => {
                 let date = new Date();
                 const updateFranchise = await Franchise.findByIdAndUpdate({ _id: franchiseData._id }, { 
                     $set: {
-                        name: req.body.name,
+                        franchiseName: req.body.franchiseName,
                         category: req.body.category,
                         subCategory: req.body.subCategory,
                         brand: req.body.brand,
