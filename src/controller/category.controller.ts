@@ -66,7 +66,10 @@ export const updateCategory = async (req, res, next) => {
                 $set:{
                 categoryName: req.body.categoryName,
                 categoryImage: req.body.categoryImage,
-                modifiedOn: convertUTCToIST(date) }
+                modifiedOn: convertUTCToIST(date) },
+                $push:{
+                    subCategory: req.body.subCategory
+                }
             });
             response(req, res, activity, 'Level-2', 'Update-Category', true, 200, update, clientError.success.fetchedSuccessfully, 'Category updated successfully');
         } catch (err) {

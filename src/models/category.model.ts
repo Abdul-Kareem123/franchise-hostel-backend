@@ -4,6 +4,7 @@ export interface CategoryDocument extends mongoose.Document {
     _id?: any;
     categoryName?: string;
     categoryImage?: string;
+    subCategory?: any[];
     isDeleted?: boolean;
     status?: number;
     createdOn?: Date;
@@ -17,6 +18,7 @@ const categorySchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, required: true, auto: true },
     categoryName: { type: String },
     categoryImage: { type: String },
+    subCategory: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
     status: { type: Number, default: 1 },
     createdOn: { type: Date },
