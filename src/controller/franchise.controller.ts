@@ -10,7 +10,7 @@ const activity = 'FRANCHISE';
 
 /**
  * @author Haripriyan K
- * @date 25-04-2024
+ * @date 01-05-2024
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
