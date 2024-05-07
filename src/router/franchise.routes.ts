@@ -13,7 +13,7 @@ router.post ('/', //save distributor
 
 router.get('/',//get all franchise
     basicAuthUser,
-    checkSession,
+    // checkSession,
     getAllFranchise);
 
 router.get('/getFranchiseByDistributorId', //get Franchise by Distributor Id
