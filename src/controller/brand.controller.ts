@@ -76,6 +76,23 @@ export const getBrandsByDistributor = async (req, res, next) => {
 
 /**
  * @author Haripriyan K
+ * @date 07-05-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get Brands by Id.
+ */
+export const getSingleBrand= async (req, res, next) => {
+    try {
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.query._id }] });
+        response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
+    } catch (error) {
+        response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
+    }
+}
+
+/**
+ * @author Haripriyan K
  * @date 01-05-2024
  * @param {Object} req 
  * @param {Object} res 
