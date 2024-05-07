@@ -21,9 +21,11 @@ router.put('/', // update category
     checkRequestBodyParams('_id'),
     updateCategory);
 
-router.put('/getFilterCategory',
+router.put('/filterCategory',
     basicAuthUser,
     // checkSession,
+    checkQuery('categoryName'),
+    checkQuery('investmentAmount'),
     getFilteredCategory);
 
 export default router;

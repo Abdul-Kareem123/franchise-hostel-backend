@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import { Category, CategoryDocument } from '../models/category.model';
+import { Brand, BrandDocument } from '../models/brand.model';
 
 var activity = "CATEGORY";
 
@@ -78,8 +79,8 @@ export const updateCategory = async (req, res, next) => {
 }
 
 /**
- * @author BalajiMurahari
- * @date   07-02-2024
+ * @author Haripriyan K
+ * @date   07-05-2024
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
@@ -93,13 +94,16 @@ export let getFilteredCategory = async (req, res, next) => {
         var page = req.body.page ? req.body.page : 0;
         andList.push({ isDeleted: false })
         andList.push({ status: 1 })
-        if(req.body.categoryName){
-            andList.push({categoryName:req.body.categoryName})
+        if(req.query.category){
+            andList.push({category:req.query.category})
+        }
+        if(req.query.investmentAmount){
+            andList.push({investmentAmount:req.query.investmentAmount})
         }
         findQuery = (andList.length > 0) ? { $and: andList } : {}
-        const CategoryList = await Category.find(findQuery).sort({ createdAt: -1 }).limit(limit).skip(page);
-        const CategoryCount = await   Category.find(findQuery).countDocuments();
-        response(req, res, activity, 'Level-1', 'Get-FilterCategory', true, 200, { CategoryList, CategoryCount }, clientError.success.fetchedSuccessfully);
+        const BrandList = await Brand.find(findQuery).sort({ createdAt: -1 }).limit(limit).skip(page);
+        const BrandCount = await   Brand.find(findQuery).countDocuments();
+        response(req, res, activity, 'Level-1', 'Get-FilterCategory', true, 200, { BrandList, BrandCount }, clientError.success.fetchedSuccessfully);
     } catch (err: any) {
         response(req, res, activity, 'Level-3', 'Get-FilterCategory', false, 500, {}, errorMessage.internalServer, err.message);
     }
