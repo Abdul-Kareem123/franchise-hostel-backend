@@ -13,7 +13,6 @@ router.post('/', //save brand
 
 router.get('/', //get brands
     basicAuthUser,
-    checkSession,
     getBrands);
 
 router.get('/getBrandsByDistributorId', //get brands by Distributor Id
