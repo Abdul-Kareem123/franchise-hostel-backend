@@ -59,6 +59,23 @@ export const getAllFranchise = async (req,res,next) => {
 
 /**
  * @author Haripriyan K
+ * @date 08-05-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get single franchise Id.
+ */
+export const getSingleFranchise = async (req,res,next) => {
+    try {
+        const getFranchise = await Franchise.findOne({$and:[{isDeleted:false},{ _id: req.query._id }]});
+        response(req,res,activity,'Level-2','Get-Franchise',true,200,getFranchise,clientError.success.fetchedSuccessfully);
+    } catch (err: any) {
+        response(req,res,activity,'Level-3','Get-Franchise',false,500,{},errorMessage.internalServer, err.message);
+    }
+}
+
+/**
+ * @author Haripriyan K
  * @date 01-05-2024
  * @param {Object} req 
  * @param {Object} res 
