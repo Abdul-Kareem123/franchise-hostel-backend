@@ -134,7 +134,7 @@ export function generate(length) {
   
   }
 
-  export function convertUTCToIST(date) {
+export function convertUTCToIST(date) {
     // Parse the UTC timestamp string
     const utcDate = new Date(date);
 

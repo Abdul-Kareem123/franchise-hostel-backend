@@ -40,7 +40,7 @@ export const createDistributor = async (req,res,next) => {
                 result['mobileNumber'] = insertData['mobileNumber'];
                 result['otp'] = insertData['otp'];
                 let finalResult = {};
-                finalResult["loginType"] = "distributor";
+                finalResult["loginType"] = "Distributor";
                 finalResult["Distributor-Details"] = result;
                 finalResult["token"] = token;
                 sendOtp(insertData.mobileNumber,insertData.otp)

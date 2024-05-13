@@ -5,7 +5,7 @@ import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
-router.post('/', //save brand
+router.post('/', //create brand
     basicAuthUser,
     checkSession,
     checkRequestBodyParams('distributorId'),
@@ -23,7 +23,6 @@ router.get('/getSingleBrand',
 
 router.get('/getBrandsByDistributorId', //get brands by Distributor Id
     basicAuthUser, 
-    checkSession,
     checkQuery('distributorId'), 
     getBrandsByDistributor);
 

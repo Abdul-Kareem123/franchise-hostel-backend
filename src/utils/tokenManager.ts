@@ -21,8 +21,7 @@ export let CreateJWTToken = (data: any = {}) => {
     if (data && data['name']) {
         tokenData['name'] = data['name']
     }
-  
-    const token = jwt.sign(tokenData, 'pixaliveWebalive', { expiresIn: '365D' });
+    const token = jwt.sign(tokenData, 'pixaliveFranchise', { expiresIn: '365D' });
     return token;
 }
 
@@ -43,7 +42,7 @@ export let checkSession = async (req, res, next) => {
         const tokenValue = token.split(' ')[1].trim();
         if (headerType.trim() === "Bearer") {
             try {
-                jwt.verify(tokenValue, 'pixaliveWebalive', function (err, tokendata) {
+                jwt.verify(tokenValue, 'pixaliveFranchise', function (err, tokendata) {
                     if (err) {
                         return res.status(400).json({ message: clientError.token.sessionExpire })
                     }

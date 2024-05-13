@@ -1,5 +1,6 @@
 import { Distributor } from "src/models/distributor.model";
 import { Franchise } from "src/models/franchise.model";
+import { Franchiser } from "src/models/franchiser.model";
 
 export let ErrorMessage = {
     email: {
@@ -52,10 +53,8 @@ export let errorMessage = {
 }
 
 
-
-
 /** 
- * @author Mohanraj V / Santhosh
+ * @author Haripriyan K
  * @description All the Error messages that needed to be sent to User
  * @type {Object}
 */
@@ -141,6 +140,20 @@ export let clientError = Object.freeze({
         FranchiseAdded: 'Franchise Added Successfully',
         FranchiseUpdated: 'Franchise Updated Successfully',
         FranchiseDelete: 'Franchise Deleted Successfully',
+    },
+    Distributor: {
+        DistributorExist: 'Distributor already exist !',
+        DistributorNotExist: 'Distributor does not exist !',
+        DistributorAdded: 'Distributor Added Successfully',
+        DistributorUpdated: 'Distributor Updated Successfully',
+        DistributorDelete: 'Distributor Deleted Successfully'
+    },
+    Franchiser: {
+        FranchiserExist: 'Franchiser already exist !',
+        FranchiserNotExist: 'Franchiser does not exist !',
+        FranchiserAdded: 'Franchiser Added Successfully',
+        FranchiserUpdated: 'Franchiser Updated Successfully',
+        FranchiserDelete: 'Franchiser Deleted Successfully'
     },
     code: {
         successCode: 200

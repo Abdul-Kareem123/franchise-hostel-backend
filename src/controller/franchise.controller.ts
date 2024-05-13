@@ -4,7 +4,7 @@ import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
-import { Distributor } from '../models/distributor.model';
+import { Franchiser } from '../models/franchiser.model';
 
 const activity = 'FRANCHISE';
 
@@ -20,7 +20,7 @@ export const createFranchise = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try{
-            const franchiseData = await Distributor.findOne({ $and: [{ isDeleted: false }, { _id: req.body.distributorId }] });
+            const franchiseData = await Franchiser.findOne({ $and: [{ isDeleted: false }, { _id: req.body.distributorId }] });
             if (!franchiseData) {
                 response(req,res,activity,'Level-2','Save-Franchise',true,200,{},clientError.Franchise.FranchiseNotExist);
             }
