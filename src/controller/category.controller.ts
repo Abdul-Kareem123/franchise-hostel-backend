@@ -14,7 +14,7 @@ var activity = "CATEGORY";
  * @param {Function} next  
  * @description This Function is use to Create Category.
  */
-export const addCategory = async (req, res, next) => {
+export const createCategory = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {

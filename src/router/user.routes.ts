@@ -31,6 +31,6 @@ router.delete('/', //delete user
     basicAuthUser,
     checkSession,
     checkQuery('_id'),
-    updateUser);
+    deleteUser);
 
 export default router;

@@ -18,8 +18,7 @@ router.get('/', //get brands
 router.get('/getSingleBrand',
     basicAuthUser,
     checkQuery('_id'),
-    getSingleBrand
-)
+    getSingleBrand);
 
 router.get('/getBrandsByDistributorId', //get brands by Distributor Id
     basicAuthUser, 

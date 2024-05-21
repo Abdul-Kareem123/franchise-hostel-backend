@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router:Router = Router();
-import { createDistributor, getAllDistributors, updateDistributor, getSingleDistributor } from "../controller/distributor.controller";
+import { createDistributor, getAllDistributors, updateDistributor, getSingleDistributor, deleteDistributor } from "../controller/distributor.controller";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
@@ -26,5 +26,11 @@ router.get('/singleDistributor', //get single distributor
     checkSession,
     checkQuery('_id'),
     getSingleDistributor);
+
+router.delete('/', //delete distributor
+    basicAuthUser,
+    checkSession,
+    checkQuery('_id'),
+    deleteDistributor);
 
 export default router;

@@ -1,30 +1,37 @@
 import { Router } from "express";
 const router:Router = Router();
-import { createFranchiser,  } from "../controller/franchiser.controller";
+import { createFranchiser, getAllFranchisers, updateFranchiser, getSingleFranchiser, deleteFranchiser  } from "../controller/franchiser.controller";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
-router.post('/', //save distributor
+router.post('/', //save franchiser
     basicAuthUser,
     checkRequestBodyParams('mobileNumber'),
     createFranchiser);
 
-// router.get('/', //get all distributor
-//     basicAuthUser,
-//     checkSession,
-//     getAllDistributors);
+router.get('/', //get all franchisers
+    basicAuthUser,
+    checkSession,
+    getAllFranchisers);
 
-// router.put('/', //update distributor
-//     basicAuthUser,
-//     checkSession,
-//     checkRequestBodyParams('_id'),
-//     updateDistributor);
+router.put('/', //update franchiser
+    basicAuthUser,
+    checkSession,
+    checkRequestBodyParams('_id'),
+    updateFranchiser);
 
-// router.get('/singleDistributor', //get single distributor
-//     basicAuthUser,
-//     checkSession,
-//     checkQuery('_id'),
-//     getSingleDistributor);
+router.get('/singleFranchiser', //get single distributor
+    basicAuthUser,
+    checkSession,
+    checkQuery('_id'),
+    getSingleFranchiser);
+
+router.delete('/', //delete franchiser
+    basicAuthUser,
+    checkSession,
+    checkQuery('_id'),
+    deleteFranchiser
+)
 
 export default router;

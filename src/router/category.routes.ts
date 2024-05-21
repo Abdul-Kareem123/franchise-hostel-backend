@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { addCategory,getCategories,getFilteredCategory,updateCategory } from '../controller/category.controller';
+import { createCategory,getCategories,getFilteredCategory,updateCategory } from '../controller/category.controller';
 import { checkQuery, checkRequestBodyParams } from '../middleware/Validators';
 import { basicAuthUser } from '../middleware/checkAuth';
 import { checkSession } from '../utils/tokenManager';
@@ -8,7 +8,7 @@ const router:Router=Router();
 router.post('/', // create category
     basicAuthUser,
     // checkSession,
-    addCategory);
+    createCategory);
 
 router.get('/', // get all category
     basicAuthUser,

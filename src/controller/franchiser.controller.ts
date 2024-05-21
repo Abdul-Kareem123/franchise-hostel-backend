@@ -57,77 +57,98 @@ export const createFranchiser = async (req,res,next) => {
     }
 };
 
-// /**
-//  * @author Haripriyan K
-//  * @date 13-04-2024
-//  * @param {Object} req 
-//  * @param {Object} res 
-//  * @param {Function} next  
-//  * @description This Function is used to get Franchisers list
-//  */
-// export let getAllFranchisers = async (req, res, next) => {
-//     try {
-//         const distributorList = await Distributor.find({ isDeleted: false });
-//         response(req, res, activity, 'Level-2', 'Get-Distributor', true, 200, distributorList, clientError.success.success);
-//     } catch (err: any) {
-//         response(req, res, activity, 'Level-3', 'Get-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
-//     }
-// }
+/**
+ * @author Haripriyan K
+ * @date 13-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get all franchisers list.
+ */
+export let getAllFranchisers = async (req, res, next) => {
+    try {
+        const franchiserList = await Franchiser.find({ isDeleted: false });
+        response(req, res, activity, 'Level-2', 'Get-Franchiser', true, 200, franchiserList, clientError.success.success);
+    } catch (err: any) {
+        response(req, res, activity, 'Level-3', 'Get-Franchiser', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
 
-// /**
-//  * @author Haripriyan K
-//  * @date 13-04-2024
-//  * @param {Object} req 
-//  * @param {Object} res 
-//  * @param {Function} next  
-//  * @description This Function is used to update Distributor
-//  */
-// export let updateDistributor = async (req, res, next) => {
-//     const errors = validationResult(req);
-//     if (errors.isEmpty()) {
-//         try {
-//             const distributorDetails: DistributorDocument = req.body;
-//             const date = new Date(); 
-//             const distributorData = await Distributor.findOne({ $and: [ { _id: distributorDetails._id }, { isDeleted: false }] });
-//             if (distributorData) {
-//                 const updateDistributor = new Distributor(distributorDetails) 
-//                 let insertDistributor = await updateDistributor.updateOne({
-//                     $set: {
-//                         name: distributorDetails.name,
-//                         mobileNumber: distributorDetails.mobileNumber,
-//                         address: distributorDetails.address,
-//                         city: distributorDetails.city,
-//                         modifiedOn: convertUTCToIST(date),
-//                         modifiedBy: distributorDetails.name
-//                     }
-//                 })
-//                 response(req, res, activity, 'Level-2', 'Update-Distributor', true, 200, insertDistributor, clientError.success.updateSuccess);
-//             }
-//         } catch (err: any) {
-//             response(req, res, activity, 'Level-3', 'Update-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
-//         }
-//     } else {
-//         response(req, res, activity, 'Level-3', 'Update-Distributor', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
-//     }
-// }
+/**
+ * @author Haripriyan K
+ * @date 13-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to update franchiser.
+ */
+export let updateFranchiser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            const franchiserDetails: FranchiserDocument = req.body;
+            const date = new Date(); 
+            const franchiserData = await Franchiser.findOne({ $and: [ { _id: franchiserDetails._id }, { isDeleted: false }] });
+            if (franchiserData) {
+                const updateFranchiser = new Franchiser(franchiserDetails) 
+                let insertFranchiser = await Franchiser.updateOne({
+                    $set: {
+                        name: franchiserDetails.name,
+                        mobileNumber: franchiserDetails.mobileNumber,
+                        email: franchiserDetails.email,
+                        companyName: franchiserDetails.companyName,
+                        productName: franchiserDetails.productName,
+                        state: franchiserDetails.state,
+                        city: franchiserDetails.city,
+                        pinCode: franchiserDetails.pinCode,
+                        modifiedOn: convertUTCToIST(date),
+                        modifiedBy: franchiserDetails.name
+                    }
+                })
+                response(req, res, activity, 'Level-2', 'Update-Franchiser', true, 200, insertFranchiser, clientError.success.updateSuccess);
+            }
+        } catch (err: any) {
+            response(req, res, activity, 'Level-3', 'Update-Franchiser', false, 500, {}, errorMessage.internalServer, err.message);
+        }
+    } else {
+        response(req, res, activity, 'Level-3', 'Update-Franchiser', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+    }
+}
 
-// /**
-//  * @author Haripriyan K
-//  * @date 17-04-2024
-//  * @param {Object} req 
-//  * @param {Object} res 
-//  * @param {Function} next  
-//  * @description This Function is used to get single Distributor.
-//  */
-// export let getSingleDistributor = async (req, res, next) => {
-//     try {
-//         const single = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.query._id }] })
-//         if (single) {
-//             response(req, res, activity, 'Level-2', 'Get-Distributor', true, 200, single, clientError.success.fetchedSuccessfully);
-//         } else {
-//             response(req, res, activity, 'Level-3', 'Get-Distributor', true, 422, {}, clientError.user.userDontExist);
-//         }
-//     } catch (err) {
-//         response(req, res, activity, 'Level-3', 'Get-Distributor', false, 500, {}, errorMessage.internalServer, err.message);
-//     }
-// }
+/**
+ * @author Haripriyan K
+ * @date 17-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get single Franchiser.
+ */
+export let getSingleFranchiser = async (req, res, next) => {
+    try {
+        const single = await Franchiser.findOne({$and:[{isDeleted:false},{ _id: req.query._id }] })
+        if (single) {
+            response(req, res, activity, 'Level-2', 'Get-Franchiser', true, 200, single, clientError.success.fetchedSuccessfully);
+        } else {
+            response(req, res, activity, 'Level-3', 'Get-Franchiser', true, 422, {}, clientError.user.userDontExist);
+        }
+    } catch (err) {
+        response(req, res, activity, 'Level-3', 'Get-Franchiser', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
+
+/**
+ * @author Haripriyan K
+ * @date 17-04-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to delete single Franchiser.
+ */
+export let deleteFranchiser = async (req, res, next) => {
+    try {
+        const deleteData = await Franchiser.findByIdAndUpdate({ _id: req.query._id }, { $set: { isDeleted: true } });
+        response(req, res, activity, 'Level-2', 'Delete-Franchiser', true, 200, deleteData, clientError.success.deleteSuccess);
+    } catch (err) {
+        response(req, res, activity, 'Level-3', 'Delete-Franchiser', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
