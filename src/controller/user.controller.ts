@@ -1,4 +1,6 @@
 import { validationResult } from 'express-validator';
+import { Distributor, DistributorDocument } from '../models/distributor.model';
+import { Franchiser, FranchiserDocument } from '../models/franchiser.model';
 import { User, UserDocument } from '../models/user.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
@@ -20,8 +22,10 @@ export const createUser = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
+            const distributorData = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
+            const franchiserData = await Franchiser.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
             const userData = await User.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            if (!userData) {
+            if (!userData || !distributorData || !franchiserData) {
                 const userDetails: UserDocument = req.body;
                 const date = new Date(); 
                 userDetails.createdOn = convertUTCToIST(date);
