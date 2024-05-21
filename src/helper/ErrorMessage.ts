@@ -63,7 +63,7 @@ export let clientError = Object.freeze({
         userNameExist: 'User already exist for given username, Please use the different one',
         userNameNotExist: 'User does not Exist for User Name',
         UserNotFound: 'You are not registered with us !',
-        userDontExist: 'Distributor does not exist',
+        userDontExist: 'User does not exist',
         userExist: 'User already exist !',
     },
     email: {
