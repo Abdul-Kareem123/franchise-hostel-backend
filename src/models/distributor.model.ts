@@ -7,6 +7,7 @@ export interface DistributorDocument extends mongoose.Document {
     mobileNumber?: Number;
     companyName?: String;
     productName?: String;
+    imageUrl?: String;
     address?: String;
     city?: String;
     pinCode?: Number;
@@ -27,6 +28,7 @@ const distributorSchema = new mongoose.Schema({
     mobileNumber: { type: Number },
     companyName: { type: String },
     productName: { type: String },
+    imageUrl: { type: String },
     address: { type: String },
     city: { type: String },
     pinCode:{ type: Number },
