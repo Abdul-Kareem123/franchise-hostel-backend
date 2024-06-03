@@ -5,7 +5,7 @@ import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
 import { Franchiser } from '../models/franchiser.model';
-import { Distributor } from 'src/models/distributor.model';
+import { Distributor } from '../models/distributor.model';
 
 const activity = 'FRANCHISE';
 
