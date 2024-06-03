@@ -9,7 +9,7 @@ export interface FranchiseDocument extends mongoose.Document {
     brand: string
     location: string;
     description: string;
-    image: string;
+    imageUrl: string;
     rateOfInterest: number;
     investmentAmount: number;
     specialFeatures: string;
@@ -31,7 +31,7 @@ const FranchiseSchema = new mongoose.Schema({
     brand: [{ type: String }],
     location: { type: String },
     description: { type: String },
-    image: { type: String },
+    imageUrl: { type: String },
     rateOfInterest: { type: Number },
     investmentAmount: { type: Number },
     specialFeatures: { type: String },

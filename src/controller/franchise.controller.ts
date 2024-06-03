@@ -20,8 +20,8 @@ export const createFranchise = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try{
-            const franchiseData = await Franchiser.findOne({ $and: [{ isDeleted: false }, { _id: req.body.distributorId }] });
-            if (!franchiseData) {
+            const franchiserData = await Franchiser.findOne({ $and: [{ isDeleted: false }, { _id: req.body.franchiserId }] });
+            if (!franchiserData) {
                 response(req,res,activity,'Level-2','Save-Franchise',true,200,{},clientError.Franchise.FranchiseNotExist);
             }
             else {
