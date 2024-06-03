@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
 export interface FranchiseDocument extends mongoose.Document {
-    _id: any;
-    distributorId: any;
-    franchiseName: string;
-    category: string;
-    subCategory: string;
-    brand: string
-    location: string;
-    description: string;
-    imageUrl: string;
-    rateOfInterest: number;
-    investmentAmount: number;
-    specialFeatures: string;
-    email: string;
-    status: number;
-    isDeleted: boolean;
-    createdOn: Date;
-    createdBy: string;
-    modifiedOn: Date;
-    modifiedBy: string
+    _id?: any;
+    distributorId?: any;
+    franchiseName?: string;
+    category?: string;
+    subCategory?: string;
+    brand?: string
+    location?: string;
+    description?: string;
+    imageUrl?: string;
+    rateOfInterest?: number;
+    investmentAmount?: number;
+    specialFeatures?: string;
+    email?: string;
+    status?: number;
+    isDeleted?: boolean;
+    createdOn?: Date;
+    createdBy?: string;
+    modifiedOn?: Date;
+    modifiedBy?: string
 }
 
 const FranchiseSchema = new mongoose.Schema({
