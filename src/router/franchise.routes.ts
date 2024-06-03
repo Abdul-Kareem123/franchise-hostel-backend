@@ -18,8 +18,7 @@ router.get('/', //get all franchise
 router.get('/getSingleFranchise',
     basicAuthUser,
     checkQuery('_id'),
-    getSingleFranchise
-)
+    getSingleFranchise);
 
 router.get('/getFranchiseByFranchiserId', //get Franchise by Franchiser Id
     basicAuthUser,   
