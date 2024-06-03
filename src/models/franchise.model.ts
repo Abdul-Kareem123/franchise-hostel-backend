@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface FranchiseDocument extends mongoose.Document {
     _id: any;
-    franchiserId: any;
+    distributorId: any;
     franchiseName: string;
     category: string;
     subCategory: string;
@@ -24,7 +24,7 @@ export interface FranchiseDocument extends mongoose.Document {
 
 const FranchiseSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto:true },
-    franchiserId: { type: mongoose.Types.ObjectId, ref:"Franchiser" },
+    distributorId: { type: mongoose.Types.ObjectId, ref:"Distributor" },
     franchiseName: { type: String },
     category: { type: String },
     subCategory: { type: String },
