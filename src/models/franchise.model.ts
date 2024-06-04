@@ -6,12 +6,18 @@ export interface FranchiseDocument extends mongoose.Document {
     franchiseName?: string;
     category?: string;
     subCategory?: string;
+    brochure?: string;
+    areaRequired?: string;
+    gstNumber?: string;
+    noOfOutlets?: number;
+    establishedYear?: number;
+    lookingForInvestor?: boolean;
     brand?: string
     location?: string;
     description?: string;
     image?: string;
     rateOfInterest?: number;
-    investmentAmount?: number;
+    investmentAmount?: any;
     specialFeatures?: string;
     email?: string;
     status?: number;
@@ -28,12 +34,21 @@ const FranchiseSchema = new mongoose.Schema({
     franchiseName: { type: String },
     category: { type: String },
     subCategory: { type: String },
+    brochure: { type: String },
+    areaRequired: { type: String },
+    gstNumber: { type: String },
+    noOfOutlets: { type: Number },
+    establishedYear: { type: Number },
+    lookingForInvestor: { type: Boolean },
     brand: [{ type: String }],
     location: { type: String },
     description: { type: String },
     image: { type: String },
     rateOfInterest: { type: Number },
-    investmentAmount: { type: Number },
+    investmentAmount: { 
+        minAmount: { type: Number },
+        maxAmount: { type: Number }
+    },
     specialFeatures: { type: String },
     email: { type: String },
     status: { type: Number, default: 1 },
