@@ -97,7 +97,7 @@ export let updateUser = async (req, res, next) => {
                         name: userDetails.name,
                         mobileNumber: userDetails.mobileNumber,
                         address: userDetails.address,
-                        city: userDetails.city,
+                        state: userDetails.state,
                         modifiedOn: convertUTCToIST(date),
                         modifiedBy: userDetails.name
                     }

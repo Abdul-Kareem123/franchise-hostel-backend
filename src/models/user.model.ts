@@ -6,7 +6,7 @@ export interface UserDocument extends mongoose.Document {
     email?: String;
     mobileNumber?: Number;
     address?: String;
-    city?: String;
+    state?: String;
     pinCode?: Number;
     otp?: Number;
     bearer_Token?: String;
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String },
     mobileNumber: { type: Number },
     address: { type: String },
-    city: { type: String },
+    state: { type: String },
     pinCode:{ type: Number },
     otp: { type: Number },
     bearer_Token: { type: String },
