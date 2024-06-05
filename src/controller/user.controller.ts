@@ -25,7 +25,7 @@ export const createUser = async (req,res,next) => {
             const distributorData = await Distributor.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
             const franchiserData = await Franchiser.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
             const userData = await User.findOne({ $and: [{ isDeleted: false }, { mobileNumber: req.body.mobileNumber }] });
-            if (!userData || !distributorData || !franchiserData) {
+            if (!userData && !distributorData && !franchiserData) {
                 const userDetails: UserDocument = req.body;
                 const date = new Date(); 
                 userDetails.createdOn = convertUTCToIST(date);
