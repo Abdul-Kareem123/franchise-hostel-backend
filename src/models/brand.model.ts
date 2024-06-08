@@ -1,27 +1,119 @@
 import mongoose from "mongoose";
 
 export interface BrandDocument extends mongoose.Document {
-    _id: any;
-    distributorId: any;
-    name: string;
-    category: string;
-    imageUrl: string;
-    investmentAmount: string;
-    status: number;
-    isDeleted: boolean;
-    createdOn: Date;
-    createdBy: string;
-    modifiedOn: Date;
-    modifiedBy: string
+    _id?: any;
+    distributorId?: any;
+    brandName?: string;
+    companyName?: string;
+    ownerName?: string;
+    ownerMobileNumber?: string;
+    ownerEmail?: string;
+    managerName?: string;
+    managerMobileNumber?: string;
+    managerEmail?: string;
+    address?: string;
+    country?: string;
+    state?: string;
+    city?: string;
+    pincode?: number;
+    websiteLink?: string;
+    lookingFor?: string;
+    lookingForFranchisePartner?: string;
+    category?: string;
+    subCategory?: string;
+    serviceOrProduct?: string;
+    yearCommencedOperation?: Number;
+    yearCommencedFranchising?: Number;
+    noOfFranchiseOutlets?: string;
+    noOfRetailOutlets?: string;
+    noOfCompanyOwnedOutlets?: string;
+    currentOutletsLocatedAt?: string;
+    materialsAvailable?: string;
+    describeYourBusiness?: string;
+    imageUrl?: string;
+    investmentAmount?: string;
+    internationalExpansion?: Boolean;
+    territorialRights?: Boolean;
+    performanceGuarantee?: Boolean;
+    leviesPayable?: Boolean;
+    percentageReturn?: String;
+    paybackPeriod?: String;
+    investmentRequirement?: String;
+    provideAidInFinancing?: Boolean;
+            propertyIsRequired?: String;
+            floorAreaRequirement?: String;
+            preferredLocation?: String;
+            outfitOfPremises?: String;
+            siteSelectionAssistance?: Boolean;
+                operatingManuals?: Boolean;
+                franchiseTraining?: String;
+                fieldAssistance?: Boolean;
+                headOffice?: Boolean;
+                itSystems?: Boolean;
+                    franchiseAgreement?: Boolean;
+                    contractDuration?: String;
+                    termRenewable?: Boolean;
+    status?: number;
+    isDeleted?: boolean;
+    createdOn?: Date;
+    createdBy?: string;
+    modifiedOn?: Date;
+    modifiedBy?: string
 }
 
 const BrandSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto:true },
     distributorId: { type: mongoose.Types.ObjectId, ref:"Distributor" },
-    name: { type: String },
+    BrandName: { type: String },
+    companyName: { type: String },
+    ownerName: { type: String },
+    ownerMobileNumber: { type: String },
+    ownerEmail: { type: String },
+    managerName: { type: String },
+    managerMobileNumber: { type: String },
+    managerEmail: { type: String },
+    address: { type: String },
+    country: { type: String },
+    state: { type: String },
+    city: { type: String },
+    pincode: { type: Number },
+    websiteLink: { type: String },
+    lookingFor: { type: String },
+    lookingForFranchisePartner: { type: String },
     category: { type: String },
+    subCategory: { type: String },
+    serviceOrProduct: { type: String },
+    yearCommencedOperation: { type: Number },
+    yearCommencedFranchising: { type: Number },
+    noOfFranchiseOutlets: { type: String },
+    noOfRetailOutlets: { type: String },
+    noOfCompanyOwnedOutlets: { type: String },
+    currentOutletsLocatedAt: { type: String },
+    materialsAvailable: { type: String },
+    describeYourBusiness: { type: String },
     imageUrl: { type: String },
     investmentAmount: { type: String },
+    internationalExpansion: { type: Boolean },
+        territorialRights: { type: Boolean },
+        performanceGuarantee: { type: Boolean },
+        leviesPayable: { type: Boolean },
+        percentageReturn: { type: String },
+        paybackPeriod: { type: String },
+        investmentRequirement: { type: String },
+        provideAidInFinancing: { type: Boolean },
+            propertyIsRequired: { type: String },
+            floorAreaRequirement: { type: String },
+            preferredLocation: { type: String },
+            outfitOfPremises: { type: String },
+            siteSelectionAssistance: { type: Boolean },
+                operatingManuals: { type: Boolean },
+                franchiseTraining: { type: String },
+                fieldAssistance: { type: Boolean },
+                headOffice: { type: Boolean },
+                itSystems: { type: Boolean },
+                    franchiseAgreement: { type: Boolean },
+                    contractDuration: { type: String },
+                    termRenewable: { type: Boolean },
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },

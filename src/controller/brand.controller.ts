@@ -23,12 +23,12 @@ export const createBrand = async (req, res, next) => {
             if (!brandData) {
                 response(req, res, activity, 'Level-3', 'Save-Brand', true, 422, {}, clientError.user.userDontExist);
             } else {
-            const brandData : BrandDocument = req.body;
-            const date = new Date();
-            brandData.createdOn = convertUTCToIST(date);
-            const createBrand = new Brand(brandData);
-            const result = await createBrand.save();
-            response(req, res, activity, 'Level-2', 'Save-Brand', true, 200, result, clientError.success.success);
+                const brandData : BrandDocument = req.body;
+                const date = new Date();
+                brandData.createdOn = convertUTCToIST(date);
+                const createBrand = new Brand(brandData);
+                const result = await createBrand.save();
+                response(req, res, activity, 'Level-2', 'Save-Brand', true, 200, result, clientError.success.success);
             }
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Save-Brand', false, 500, {}, errorMessage.internalServer, error.message);
@@ -111,7 +111,7 @@ export const updateBrand = async (req, res, next) => {
                 const date = new Date();
                 const updateBrand = await Brand.findByIdAndUpdate({ _id: brandData._id }, {
                     $set: {
-                        name: brandData.name,
+                        brandName: brandData.brandName,
                         category: brandData.category,
                         imageUrl: brandData.imageUrl,
                         investmentAmount: brandData.investmentAmount,
