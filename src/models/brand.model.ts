@@ -41,9 +41,10 @@ export interface BrandDocument extends mongoose.Document {
     investmentRequirement?: String;
     provideAidInFinancing?: Boolean;
             propertyIsRequired?: String;
-            floorAreaRequirement?: String;
+            floorAreaRequiredMin?: String;
+            floorAreaRequiredMax?: String;
             preferredLocation?: String;
-            outfitOfPremises?: String;
+            outfitOfPremises?: Boolean;
             siteSelectionAssistance?: Boolean;
                 operatingManuals?: Boolean;
                 franchiseTraining?: String;
@@ -102,9 +103,10 @@ const BrandSchema = new mongoose.Schema({
         investmentRequirement: { type: String },
         provideAidInFinancing: { type: Boolean },
             propertyIsRequired: { type: String },
-            floorAreaRequirement: { type: String },
+            floorAreaRequiredMin: { type: String },
+            floorAreaRequiredMax: { type: String },
             preferredLocation: { type: String },
-            outfitOfPremises: { type: String },
+            outfitOfPremises: { type: Boolean },
             siteSelectionAssistance: { type: Boolean },
                 operatingManuals: { type: Boolean },
                 franchiseTraining: { type: String },
