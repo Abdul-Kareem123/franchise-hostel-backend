@@ -118,9 +118,8 @@ export const updateBrand = async (req, res, next) => {
                         modifiedOn: convertUTCToIST(date),
                         modifiedBy: brandData.modifiedBy
                     }
-                })
-                const update = await Brand.findOne({$and:[{isDeleted:false},{ _id: brandData._id }]})
-                response(req, res, activity, 'Level-2', 'Update-Brand', true, 200, update, clientError.success.updateSuccess);
+                },{new:true});
+                response(req, res, activity, 'Level-2', 'Update-Brand', true, 200, updateBrand, clientError.success.updateSuccess);
             }
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Update-Brand', false, 500, {}, errorMessage.internalServer, error.message);
@@ -151,7 +150,7 @@ export const deleteBrand = async (req, res, next) => {
                     modifiedOn: convertUTCToIST(date),
                     modifiedBy: brandData.modifiedBy
                 }
-            })
+            },{new:true});
             const update = await Brand.findOne({ _id: req.query._id })
             response(req, res, activity, 'Level-2', 'Delete-Brand', true, 200, update, clientError.success.deleteSuccess);
         }
