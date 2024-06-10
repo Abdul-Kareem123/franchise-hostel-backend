@@ -13,7 +13,7 @@ pipeline {
             steps {
                 cleanWs()
                 checkout scm // This uses Jenkins' built-in SCM integration to checkout the code
-                git credentialsId: 'pixclick-github', branch: 'developement', url: " https://github.com/Pixaliveworks/franchise_backend.git"
+                git credentialsId: 'pixclick-github', branch: 'main', url: " https://github.com/Pixaliveworks/franchise_backend.git"
 
                 echo "Debug: Completed git pull stage"
             }
@@ -81,10 +81,10 @@ pipeline {
 
     post {
         success {
-            mail bcc: '', body: "Job success - ${JOB_BASE_NAME}\nJenkins URL - ${JOB_URL}", cc: 'rajasekar@pixalive.me,mohanraj@pixalive.me,prashanth@pixalive.me', from: 'kiran@pixalive.me', replyTo: '', subject: "The Pipeline success - ${JOB_NAME}", to: 'kabeer@pixalive.me,kiran@pixalive.me'
+            mail bcc: '', body: "Job success - ${JOB_BASE_NAME}\nJenkins URL - ${JOB_URL}", cc: 'rajasekar@pixalive.me,mohanraj@pixalive.me,prashanth@pixalive.me,imraz@pixalive.me,haripriyan@pixalive.me', from: 'kiran@pixalive.me', replyTo: '', subject: "The Pipeline success - ${JOB_NAME}", to: 'kabeer@pixalive.me,kiran@pixalive.me'
         }
         failure {
-            mail bcc: '', body: "Job Failed - ${JOB_BASE_NAME}\nJenkins URL - ${JOB_URL}", cc: 'rajasekar@pixalive.me,mohanraj@pixalive.me,prashanth@pixalive.me','imraz@pixalive.me', from: 'kiran@pixalive.me', replyTo: '', subject: "The Pipeline failed - ${JOB_NAME}", to: 'kabeer@pixalive.me,kiran@pixalive.me'
+            mail bcc: '', body: "Job Failed - ${JOB_BASE_NAME}\nJenkins URL - ${JOB_URL}", cc: 'rajasekar@pixalive.me,mohanraj@pixalive.me,prashanth@pixalive.me,imraz@pixalive.me,haripriyan@pixalive.me', from: 'kiran@pixalive.me', replyTo: '', subject: "The Pipeline failed - ${JOB_NAME}", to: 'kabeer@pixalive.me,kiran@pixalive.me'
         }
     }
 }

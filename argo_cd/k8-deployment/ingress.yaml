@@ -19,7 +19,7 @@ metadata:
     alb.ingress.kubernetes.io/healthy-threshold-count: '3'
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-south-1:358308582535:certificate/d0707182-c503-403d-b2bb-07d382fb78dd"
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-south-1:358308582535:certificate/7cb807e8-9621-4626-acd9-5c40631115e6"
 spec:
   rules:
   - host: dev-api.pixalivefranchise.com
