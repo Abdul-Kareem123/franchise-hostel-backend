@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: franchise-backend-deployment
+  namespace: pixclick
+  labels:
+    tier: app
+    name: franchise-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: app
+      name: franchise-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        tier: app
+        name: franchise-backend
+    spec:
+      containers:
+      - name: franchise-backend
+        imagePullPolicy: Always
+        image: "358308582535.dkr.ecr.ap-south-1.amazonaws.com/franchise_backend:1.0.0-4"
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "1024Mi"
+          limits:
+            cpu: "250m"
+            memory: "1024Mi"
+        envFrom:
+        - secretRef:
+            name: franchise-backend-secret
+        ports:
+        - containerPort: 5003
+        livenessProbe:
+          httpGet:
+            path: /api
+            port: 5003
+          initialDelaySeconds: 100
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api
+            port: 5003
+          initialDelaySeconds: 70
+          periodSeconds: 10
+
+
