@@ -26,7 +26,7 @@ spec:
       containers:
       - name: franchise-backend
         imagePullPolicy: Always
-        image: "358308582535.dkr.ecr.ap-south-1.amazonaws.com/franchise_backend:1.0.0-4"
+        image: "358308582535.dkr.ecr.ap-south-1.amazonaws.com/franchise_backend:1.0.0-1"
         resources:
           requests:
             cpu: "150m"
