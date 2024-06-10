@@ -54,6 +54,11 @@ export interface BrandDocument extends mongoose.Document {
                     franchiseAgreement?: Boolean;
                     contractDuration?: String;
                     termRenewable?: Boolean;
+                        layoutOption?: String;
+                        companyLogo?: String;
+                        videoLink?: String;
+                        gstNumber?: String;
+                        modeOfPayment?: String;
     status?: number;
     isDeleted?: boolean;
     createdOn?: Date;
