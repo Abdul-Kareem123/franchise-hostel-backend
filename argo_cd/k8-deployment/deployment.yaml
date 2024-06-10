@@ -35,8 +35,8 @@ spec:
             cpu: "250m"
             memory: "1024Mi"
         envFrom:
-        - secretRef:
-            name: franchise-backend-secret
+        - configMapRef:
+            name: franchise-backend-configmap
         ports:
         - containerPort: 5003
         livenessProbe:
