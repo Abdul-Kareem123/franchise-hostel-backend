@@ -65,7 +65,7 @@ export interface BrandDocument extends mongoose.Document {
 const BrandSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto:true },
     distributorId: { type: mongoose.Types.ObjectId, ref:"Distributor" },
-    BrandName: { type: String },
+    brandName: { type: String },
     companyName: { type: String },
     ownerName: { type: String },
     ownerMobileNumber: { type: String },
