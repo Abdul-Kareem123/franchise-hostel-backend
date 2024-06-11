@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator';
 import { Distributor, DistributorDocument } from '../models/distributor.model';
 import { Franchiser, FranchiserDocument } from '../models/franchiser.model';
 import { User, UserDocument } from '../models/user.model';
-import { response, convertUTCToIST } from '../helper/commonResponseHandler';
+import { response,userSaveNotification, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
 import * as TokenManager from '../utils/tokenManager';
 import { sendOtp } from '../helper/commonResponseHandler';
@@ -46,6 +46,7 @@ export const createUser = async (req,res,next) => {
                 finalResult["User-Details"] = result;
                 finalResult["token"] = token;
                 sendOtp(insertData.mobileNumber,insertData.otp)
+                userSaveNotification(insertData._id,insertData.name);
                 response(req,res,activity,'Level-2','Save-User',true,200,finalResult,clientError.success.savedSuccessfully);
             } else {
                 response(req,res,activity,'Level-3','Save-User',false,422,{},clientError.mobile.mobileExist);

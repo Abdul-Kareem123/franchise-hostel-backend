@@ -1,5 +1,6 @@
 import { saveLog } from "../controller/logs.controller";
 import { LogsDocument, Logs } from "../models/logs.model";
+import { User, UserDocument } from "../models/user.model";
 var nodemailer = require('nodemailer');
 import axios from 'axios';
 
@@ -146,4 +147,17 @@ export function convertUTCToIST(date) {
     // const ISTTimeString = ISTTime.toISOString().replace('T', ' ').replace('Z', '+05:30');
 
     return ISTTime;
+}
+
+export async function userSaveNotification(_id,name){
+    try {
+        const check = await User.updateOne({_id:_id},{$push:{notification:{
+            title:"Welcome Notification",
+            description:"",
+            data:"welcome to get distributor.com "+name,
+            createdOn:convertUTCToIST(Date.now())
+        }}});
+    } catch(err) {
+        console.log(err);
+    }
 }

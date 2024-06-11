@@ -9,6 +9,7 @@ export interface UserDocument extends mongoose.Document {
     state?: String;
     pinCode?: Number;
     otp?: Number;
+    notification?: any[];
     bearer_Token?: String;
     status?: Number;
     isDeleted?: Boolean;
@@ -27,6 +28,12 @@ const userSchema = new mongoose.Schema({
     state: { type: String },
     pinCode:{ type: Number },
     otp: { type: Number },
+    notification:[{
+        title:{ type: String },
+        description:{ type: String }, 
+        data:{ type: String }, 
+        createdOn:{ type:Date }
+    }],
     bearer_Token: { type: String },
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
