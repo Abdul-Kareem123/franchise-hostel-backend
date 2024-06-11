@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: franchise-backend-configmap
+  namespace: pixclick
+data:
+  MONGODB_URL: "mongodb+srv://AdEarns:pixalive@pixalive-adearns.kmmuaxl.mongodb.net/Franch?retryWrites=true&w=majority"
+  basicAuthUser: "franchise"
+  basicAuthKey: "DAF87DSFDSFDSA98FSADKJE324KJL32HFD7FDSFB24343J49DSF"
+
+
