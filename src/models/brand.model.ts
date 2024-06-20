@@ -37,7 +37,7 @@ export interface BrandDocument extends mongoose.Document {
     performanceGuarantee?: Boolean;
     leviesPayable?: Boolean;
     percentageReturn?: String;
-    paybackPeriod?: String;
+    paybackPeriod?: any;
     investmentRequirement?: String;
     provideAidInFinancing?: Boolean;
             propertyIsRequired?: String;
@@ -104,7 +104,10 @@ const BrandSchema = new mongoose.Schema({
         performanceGuarantee: { type: Boolean },
         leviesPayable: { type: Boolean },
         percentageReturn: { type: String },
-        paybackPeriod: { type: String },
+        paybackPeriod: { 
+            minMonth: { type: Number },
+            maxMonth: { type: Number }
+        },
         investmentRequirement: { type: String },
         provideAidInFinancing: { type: Boolean },
             propertyIsRequired: { type: String },
