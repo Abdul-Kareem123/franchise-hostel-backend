@@ -19,6 +19,17 @@ export interface BrandDocument extends mongoose.Document {
     websiteLink?: string;
     lookingFor?: string;
     lookingForFranchisePartner?: string;
+    unitInvestmentAmount?: number;
+    unitFranchiseOrBrandfee?: number;
+    unitRoyaltyOrCommissionfee?: number;
+    investmentAmountOrCountrywise?: number;
+    unitBrandfeeCountrywise?: number;
+    masterBrandfeeCountrywise?: number;
+    royaltyCommissionfeeCountrywise?: number;
+    investmentAmountRegionwise?: number;
+    unitBrandfeeRegionwise?: number;
+    masterBrandfeeRegionwise?: number;
+    royaltyCommissionfeeRegionwise?: number;
     category?: string;
     subCategory?: string;
     serviceOrProduct?: string;
@@ -86,6 +97,17 @@ const BrandSchema = new mongoose.Schema({
     websiteLink: { type: String },
     lookingFor: { type: String },
     lookingForFranchisePartner: { type: String },
+    unitInvestmentAmount: { type: Number },
+    unitFranchiseOrBrandfee: { type: Number },
+    unitRoyaltyOrCommissionfee: { type: Number },
+    investmentAmountOrCountrywise: { type: Number },
+    unitBrandfeeCountrywise: { type: Number },
+    masterBrandfeeCountrywise: { type: Number },
+    royaltyCommissionfeeCountrywise: { type: Number },
+    investmentAmountRegionwise: { type: Number },
+    unitBrandfeeRegionwise: { type: Number },
+    masterBrandfeeRegionwise: { type: Number },
+    royaltyCommissionfeeRegionwise: { type: Number },
     category: { type: String },
     subCategory: { type: String },
     serviceOrProduct: { type: String },
