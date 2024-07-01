@@ -65,8 +65,11 @@ export interface BrandDocument extends mongoose.Document {
                     franchiseAgreement?: Boolean;
                     contractDuration?: String;
                     termRenewable?: Boolean;
-                        layoutOption?: String;
                         companyLogo?: String;
+                        companyImageSmall?: String;
+                        companyImageMedium?: String;
+                        companyBannerSmall?: String;
+                        companyBannerMedium?: String;
                         videoLink?: String;
                         gstNumber?: String;
                         modeOfPayment?: String;
@@ -146,8 +149,11 @@ const BrandSchema = new mongoose.Schema({
                     franchiseAgreement: { type: Boolean },
                     contractDuration: { type: String },
                     termRenewable: { type: Boolean },
-                        layoutOption: { type: String },
                         companyLogo: { type: String },
+                        companyImageSmall: { type: String },
+                        companyImageMedium: { type: String },
+                        companyBannerSmall: { type: String },
+                        companyBannerMedium: { type: String },
                         videoLink: { type: String },
                         gstNumber: { type: String },
                         modeOfPayment: { type: String },
