@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
-import { contactUs, getAllContactUs, getSingle } from "../controller/contactUs.controller";
+import { contactUs, getAllContactUs, getBrandContactUser, getSingle } from "../controller/contactUs.controller";
 const router:Router=Router()
  
 router.post("/",
@@ -21,5 +21,12 @@ basicAuthUser,
 // checkSession,
 getSingle
 );
+
+router.get('/contactuser',
+    basicAuthUser,
+    // checkSession,
+    getBrandContactUser
+    );
+     
  
 export default router;

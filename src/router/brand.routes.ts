@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router:Router = Router();
-import { createBrand, getBrands, getBrandsByDistributor, updateBrand, deleteBrand, getSingleBrand } from "../controller/brand.controller";
+import { createBrand, getBrands, getBrandsByDistributor, updateBrand, deleteBrand, getSingleBrand, updateBrandAmount, CoinsDeduction } from "../controller/brand.controller";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
@@ -31,10 +31,24 @@ router.put('/', //update brand
     checkRequestBodyParams('_id'),
     updateBrand);
 
+router.put('/updateBrandAmount', //update brand
+        basicAuthUser,
+        //checkSession,
+        checkRequestBodyParams('_id'),
+        updateBrandAmount);
+
 router.delete('/', //delete brand
     basicAuthUser,
     checkSession,
     checkQuery('_id'),
     deleteBrand);
+
+ 
+
+router.put('/Coins', //update brand
+    basicAuthUser,
+    //checkSession,
+    checkRequestBodyParams('_id'),
+    CoinsDeduction);   
 
 export default router;

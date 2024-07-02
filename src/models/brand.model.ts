@@ -73,6 +73,10 @@ export interface BrandDocument extends mongoose.Document {
                         videoLink?: String;
                         gstNumber?: String;
                         modeOfPayment?: String;
+                    
+    Amount: number; 
+    coinDeduct: number;
+    userList?:any;
     status?: number;
     isDeleted?: boolean;
     createdOn?: Date;
@@ -157,6 +161,12 @@ const BrandSchema = new mongoose.Schema({
                         videoLink: { type: String },
                         gstNumber: { type: String },
                         modeOfPayment: { type: String },
+    Amount:{type:Number , default:0},    
+    coinDeduct:{type:Number},
+    userList:[{
+        userName:{type:String},
+        userId:{type:mongoose.Types.ObjectId , ref:"User"},
+    }],
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },

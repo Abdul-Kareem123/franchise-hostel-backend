@@ -7,8 +7,10 @@ export interface contactDocument extends mongoose.Document{
     mobileNumber?: number;
     emailAddress?: string;
     pincode?: number;
+    brandId?:any;
     subject?: string;
     message?: string;
+    isDeleted?: boolean ;
     createdOn?: Date
     createdBy?: string
     modifiedOn?: Date
@@ -22,8 +24,10 @@ const contactSchema = new mongoose.Schema({
     mobileNumber: { type: Number },
     emailAddress: { type: String, lowercase: true, trim: true },
     pincode:{ type: Number },
+    brandId:{type:mongoose.Types.ObjectId , ref:'Brand'},
     subject:{ type: String },
     message: { type: String },
+    isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },
     createdBy: { type: String },
     modifiedOn: { type: Date },

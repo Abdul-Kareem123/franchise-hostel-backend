@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import { Distributor, DistributorDocument } from '../models/distributor.model';
 import { Franchise } from '../models/franchise.model';
+import { User, UserDocument } from '../models/user.model';
 import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
@@ -130,6 +131,41 @@ export const updateBrand = async (req, res, next) => {
 }
 
 /**
+ * @author Kaaaviyan 
+ * @date 01-07-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to update brand.
+ */
+export const updateBrandAmount = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            const brandData = await Brand.findOne({$and:[{isDeleted:false},{ _id: req.body._id }]})
+            if (!brandData) {
+                response(req, res, activity, 'Level-3', 'Update-Brand', true, 422, {}, clientError.Brand.brandNotExist);
+            } else {
+                const brandData : BrandDocument = req.body;
+                const date = new Date();
+                const updateBrand = await Brand.findByIdAndUpdate({ _id: brandData._id }, {
+                    $set: {
+                        Amount:brandData.Amount,
+                        modifiedOn: convertUTCToIST(date),
+                        modifiedBy: brandData.modifiedBy
+                    }
+                },{new:true});
+                response(req, res, activity, 'Level-2', 'Update-Brand', true, 200, updateBrand, clientError.success.updateSuccess);
+            }
+        } catch (error) {
+            response(req, res, activity, 'Level-3', 'Update-Brand', false, 500, {}, errorMessage.internalServer, error.message);
+        }
+    } else {
+        response(req, res, activity, 'Level-3', 'Update-Brand', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+    }
+}
+
+/**
  * @author Haripriyan K
  * @date 01-05-2024
  * @param {Object} req 
@@ -156,5 +192,58 @@ export const deleteBrand = async (req, res, next) => {
         }
     } catch (error) {
         response(req, res, activity, 'Level-3', 'Delete-Brand', false, 500, {}, errorMessage.internalServer, error.message);
+    }
+}
+
+
+
+/**
+ * @author Kaaaviyan 
+ * @date 01-07-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to update brand.
+ */
+export const CoinsDeduction = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        try {
+            const userDetails: UserDocument = req.body;
+            const date = new Date();
+            const brandData : BrandDocument = req.body;
+            const userData = await User.findOne({_id: userDetails.userId},{name:1,userId:1})
+            console.log(userData);
+            
+           if (userData) {
+            const brandDatas = await Brand.findOne({_id:brandData._id},{Amount:1 , _id:0})
+            console.log(brandDatas);
+
+              if (brandData) {
+                const data = await Brand.findByIdAndUpdate({ _id: brandData._id }, {$push:{
+                  userList:[{userName:userData.name ,userId:userData.userId}] }})
+                    const deduct = brandDatas.Amount - 10 ;
+                    console.log(deduct);
+                    
+                 const deducts = await Brand.findByIdAndUpdate({ _id: brandData._id }, {$set:{
+                    Amount:deduct,
+                    modifiedOn: convertUTCToIST(date),
+                    modifiedBy: brandData.modifiedBy
+                 }}) 
+                 response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 200, deducts, clientError.success.updateSuccess);
+
+              } else {
+                response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', false, 422, {}, clientError.Brand.brandNotExist);
+ 
+              }
+           } else {
+            response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 422, {}, clientError.user.UserNotFound);
+
+           }
+        } catch (error) {
+            response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 500, {}, errorMessage.internalServer, error.message);
+        }
+    } else {
+        response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 }

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export interface UserDocument extends mongoose.Document {
     _id?: any;
     name?: String;
+    userId?:any;
     email?: String;
     mobileNumber?: Number;
     address?: String;
@@ -21,6 +22,7 @@ export interface UserDocument extends mongoose.Document {
  
 const userSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true},
+    userId:{type:mongoose.Types.ObjectId},
     name: { type: String },
     email: { type: String },
     mobileNumber: { type: Number },

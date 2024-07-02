@@ -71,3 +71,25 @@ export let getSingle = async( req, res, next ) =>{
             response(req, res, activity, 'Level-3', 'Fetch-User', false, 500, {}, errorMessage.internalServer, err.message);
     }
 }
+
+/**
+ * @author Kaaviyan G S
+ * @date 01-07-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to find single brand contact user
+ */
+export let getBrandContactUser = async( req, res, next ) =>{
+    try {
+        const contactDetails:contactDocument = req.body;
+        const data = await contact.find({$and:[{brandId:contactDetails.brandId},{isDeleted:false}]})
+        console.log(data);
+        
+            response(req, res, activity, 'Level-2', 'Fetch-user', true, 200, data, clientError.success.fetchedSuccessfully);
+     
+            } 
+    catch (err) {
+            response(req, res, activity, 'Level-3', 'Fetch-User', false, 500, {}, errorMessage.internalServer, err.message);
+    }
+}
