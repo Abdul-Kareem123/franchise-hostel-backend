@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
  
-export interface contactDocument extends mongoose.Document{
+export interface ProposalDocument extends mongoose.Document{
     _id?: any;
     name?: string;
     phone?: number;
@@ -17,7 +17,7 @@ export interface contactDocument extends mongoose.Document{
     modifiedBy?: string
 }
  
-const contactSchema = new mongoose.Schema({
+const proposalSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
     name: { type: String },
     phone: { type: Number },
@@ -35,4 +35,4 @@ const contactSchema = new mongoose.Schema({
    
 })
  
-export const contact = mongoose.model("Contact us",contactSchema)
+export const Proposal = mongoose.model("Proposal",proposalSchema)

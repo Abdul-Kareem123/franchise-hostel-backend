@@ -10,6 +10,7 @@ import Category from './category.routes';
 import Brand from './brand.routes'
 import Franchiser from './franchiser.routes'
 import User from './user.routes'
+import Proposal from './proposal.routes'
 
 router.use('/distributor',Distributor);
 router.use('/franchise',Franchise);
@@ -20,5 +21,6 @@ router.use('/category',Category);
 router.use('/brand',Brand);
 router.use('/franchiser',Franchiser);
 router.use('/user',User);
+router.use('/proposal',Proposal);
 
 export default router ;

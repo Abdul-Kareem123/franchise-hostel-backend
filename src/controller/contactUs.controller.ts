@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { response } from "../helper/commonResponseHandler";
 import { clientError,errorMessage } from "../helper/ErrorMessage";
 import { contact, contactDocument } from "../models/contactUs.model";
+import { Brand } from "../models/brand.model";
  
 var activity="contact us"
  
@@ -22,7 +23,12 @@ if(errors.isEmpty){
         const contactDetails:contactDocument = req.body;
         const createData = new contact(contactDetails)
         const insertData = await createData.save()
-        response(req,res,activity,'Level-2','Save-Contactus',true,200, insertData,clientError.success.sendSuccessfully)
+        if (insertData) {
+            const data = await Brand.findByIdAndUpdate({_id:insertData.brandId},{$inc:{Amount:-10}})
+            response(req,res,activity,'Level-2','Save-Contactus',true,200, insertData,clientError.success.sendSuccessfully)
+        } else {
+            response(req,res,activity,'Level-3','Save-Contactus',false,422,{},clientError.user.UserNotFound)
+        }
     }
     catch (error) {
         response(req,res,activity,'Level-3','Save-Contactus',false,500,{},errorMessage.internalServer,error.message)

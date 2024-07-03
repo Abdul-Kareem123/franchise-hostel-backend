@@ -209,7 +209,7 @@ export const CoinsDeduction = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const userDetails: UserDocument = req.body;
+            const userDetails: UserDocument = req.body; 
             const date = new Date();
             const brandData : BrandDocument = req.body;
             const userData = await User.findOne({_id: userDetails.userId},{name:1,userId:1})
