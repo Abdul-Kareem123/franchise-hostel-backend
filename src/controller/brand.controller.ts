@@ -206,41 +206,16 @@ export const deleteBrand = async (req, res, next) => {
  * @param {Function} next  
  * @description This Function is used to update brand.
  */
-export const CoinsDeduction = async (req, res, next) => {
+export const coinsDeduction = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const userDetails: UserDocument = req.body; 
-            const date = new Date();
-            const brandData : BrandDocument = req.body;
-            const userData = await User.findOne({_id: userDetails.userId},{name:1,userId:1})
-            console.log(userData);
-            
-           if (userData) {
-            const brandDatas = await Brand.findOne({_id:brandData._id},{Amount:1 , _id:0})
-            console.log(brandDatas);
-
-              if (brandData) {
-                const data = await Brand.findByIdAndUpdate({ _id: brandData._id }, {$push:{
-                  userList:[{userName:userData.name ,userId:userData.userId}] }})
-                    const deduct = brandDatas.Amount - 10 ;
-                    console.log(deduct);
-                    
-                 const deducts = await Brand.findByIdAndUpdate({ _id: brandData._id }, {$set:{
-                    Amount:deduct,
-                    modifiedOn: convertUTCToIST(date),
-                    modifiedBy: brandData.modifiedBy
-                 }}) 
-                 response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 200, deducts, clientError.success.updateSuccess);
-
-              } else {
-                response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', false, 422, {}, clientError.Brand.brandNotExist);
- 
-              }
-           } else {
-            response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 422, {}, clientError.user.UserNotFound);
-
-           }
+            const userData = await User.findOne({_id: req.body.userId},{name:1,userId:1})
+                const data = await Brand.findByIdAndUpdate({ _id: req.body._id }, {
+                    $push:{ userList:[{userName:userData.name ,userId:userData.userId}] },
+                    $inc:{Amount:-10}
+                })
+                 response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 200, data, clientError.success.updateSuccess);
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 500, {}, errorMessage.internalServer, error.message);
         }

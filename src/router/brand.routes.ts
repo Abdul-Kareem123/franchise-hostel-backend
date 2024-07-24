@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router:Router = Router();
-import { createBrand, getBrands, getBrandsByDistributor, updateBrand, deleteBrand, getSingleBrand, updateBrandAmount, CoinsDeduction } from "../controller/brand.controller";
+import { createBrand, getBrands, getBrandsByDistributor, updateBrand, deleteBrand, getSingleBrand, updateBrandAmount, coinsDeduction } from "../controller/brand.controller";
 import { basicAuthUser } from "../middleware/checkAuth";
 import { checkSession } from "../utils/tokenManager";
 import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
@@ -49,6 +49,6 @@ router.put('/Coins', //update brand
     basicAuthUser,
     //checkSession,
     checkRequestBodyParams('_id'),
-    CoinsDeduction);   
+    coinsDeduction);   
 
 export default router;
