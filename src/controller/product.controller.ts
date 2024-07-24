@@ -63,7 +63,10 @@ export let saveProduct = async (req, res, next) => {
 //                 const purchasedProduct = await Product.findById(insertData._id);
 //                 if (purchasedProduct) {
 //                     purchasedProduct.quantity -= 1;
-//                     await purchasedProduct.save();
+//                     await purchasedProduct.save();-+
+
+
+    
 //                 }
 //             }
 

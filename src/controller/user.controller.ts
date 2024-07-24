@@ -18,6 +18,7 @@ const activity = 'USER';
  * @param {Function} next  
  * @description This Function is used to save User.
  */
+
 export const createUser = async (req,res,next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -48,7 +49,7 @@ export const createUser = async (req,res,next) => {
                 sendOtp(insertData.mobileNumber,insertData.otp)
                 userSaveNotification(insertData._id,insertData.name);
                 response(req,res,activity,'Level-2','Save-User',true,200,finalResult,clientError.success.savedSuccessfully);
-            } else {
+            } else {0
                 response(req,res,activity,'Level-3','Save-User',false,422,{},clientError.mobile.mobileExist);
             }
         } catch (err: any) {
@@ -114,6 +115,7 @@ export let updateUser = async (req, res, next) => {
 }
 
 /**
+ * 
  * @author Haripriyan K
  * @date 16-05-2024
  * @param {Object} req 
@@ -131,8 +133,9 @@ export let getSingleUser = async (req, res, next) => {
         }
     } catch (err) {
         response(req, res, activity, 'Level-3', 'Get-User', false, 500, {}, errorMessage.internalServer, err.message);
-    }
+    } 
 }
+
 
 /**
  * @author Haripriyan K

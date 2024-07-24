@@ -10,7 +10,7 @@ import { sendOtp } from '../helper/commonResponseHandler';
 const activity = 'FRANCHISER';
 
 /**
- * @author Haripriyan K
+ * @author Haripriyan K.
  * @date 13-05-2024
  * @param {Object} req 
  * @param {Object} res 

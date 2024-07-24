@@ -67,7 +67,7 @@ export let login = async (req, res, next) => {
                         result1['_id'] = franchiser['_id'];
                         result1['mobileNumber'] = franchiser['mobileNumber'];
                         result1['otp'] = otp1;
-                        let finalResult1 = {};
+                        let finalResult1 = {};  
                         finalResult1["loginType"] = "Franchiser";
                         finalResult1["franchiserDetails"] = result1;
                         finalResult1["token"] = token1;

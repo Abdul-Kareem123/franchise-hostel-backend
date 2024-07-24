@@ -1,3 +1,4 @@
+
 import { validationResult } from "express-validator";
 import { response } from "../helper/commonResponseHandler";
 import { clientError,errorMessage } from "../helper/ErrorMessage";
@@ -11,9 +12,10 @@ var activity="contact us"
  * @author Vinodhagan P
  * @date 01-04-2024
  * @param {Object} req
- * @param {Object} res
+ * @param {Objzect} res
  * @param {Function} next
- * @description This function is used to create contact us
+ * @description This function is used to create contact user\-
+ * 3
  */
  
 export let contactUs = async(req,res,next)=>{
@@ -36,7 +38,11 @@ if(errors.isEmpty){
 }
     else{
        response(req,res,activity,'Level-3','Save-Contactus',false,422,{},errorMessage.fieldValidation,JSON.stringify(errors.mapped))
-    }
+    
+
+
+
+       3+++65
 }
 /**
  * @author Vinodhagan P

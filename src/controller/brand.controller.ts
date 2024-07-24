@@ -126,9 +126,10 @@ export const updateBrand = async (req, res, next) => {
             response(req, res, activity, 'Level-3', 'Update-Brand', false, 500, {}, errorMessage.internalServer, error.message);
         }
     } else {
-        response(req, res, activity, 'Level-3', 'Update-Brand', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+        response(req, res, activity, 'Level-3', 'Update--Brand', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
-}
+} 
+
 
 /**
  * @author Kaaaviyan 
