@@ -38,11 +38,7 @@ if(errors.isEmpty){
 }
     else{
        response(req,res,activity,'Level-3','Save-Contactus',false,422,{},errorMessage.fieldValidation,JSON.stringify(errors.mapped))
-    
-
-
-
-       3+++65
+    }
 }
 /**
  * @author Vinodhagan P
