@@ -3,6 +3,7 @@ import { LogsDocument, Logs } from "../models/logs.model";
 import { User, UserDocument } from "../models/user.model";
 var nodemailer = require('nodemailer');
 import axios from 'axios';
+import * as crypto from "crypto";
 
 
 /**
@@ -161,3 +162,15 @@ export async function userSaveNotification(_id,name){
         console.log(err);
     }
 }
+
+
+export async function generateOrderId() {
+    const uniqueId = crypto.randomBytes(16).toString('hex');
+   
+    const hash = crypto.createHash('sha256');
+    hash.update(uniqueId);
+   
+    const orderId = hash.digest('hex');
+   
+    return orderId.substr(0, 12);
+  }
