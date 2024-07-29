@@ -208,30 +208,16 @@ export const deleteBrand = async (req, res, next) => {
  * @param {Function} next  
  * @description This Function is used to update brand.
  */
-export const CoinsDeduction = async (req, res, next) => {
+export const coinsDeduction = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const date = new Date();
             const userData = await User.findOne({_id: req.body.userId},{name:1,userId:1})
-            
-           if (userData) {
-            const brandDatas = await Brand.findOne({_id:req.body._id},{Amount:1 , _id:0})
-              if (brandDatas) {
-
-                const data = await Brand.findByIdAndUpdate({ _id: req.body._id }, {$inc:{Amount:-10},$push:{
-                  userList:[{userName:userData.name ,userId:userData.userId}] }})
-
+                const data = await Brand.findByIdAndUpdate({ _id: req.body._id }, {
+                    $push:{ userList:[{userName:userData.name ,userId:userData.userId}] },
+                    $inc:{Amount:-10}
+                })
                  response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 200, data, clientError.success.updateSuccess);
-        
-                } else {
-                response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', false, 422, {}, clientError.Brand.brandNotExist);
-            
-            }
-           } else {
-            response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 422, {}, clientError.user.UserNotFound);
-          
-        }
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 500, {}, errorMessage.internalServer, error.message);
       
