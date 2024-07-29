@@ -138,6 +138,7 @@ export const updateBrand = async (req, res, next) => {
  * @param {Function} next  
  * @description This Function is used to update brand.
  */
+
 export const updateBrandAmount = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
