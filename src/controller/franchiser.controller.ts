@@ -90,17 +90,16 @@ export let updateFranchiser = async (req, res, next) => {
             const date = new Date(); 
             const franchiserData = await Franchiser.findOne({ $and: [ { _id: franchiserDetails._id }, { isDeleted: false }] });
             if (franchiserData) {
-                const updateFranchiser = new Franchiser(franchiserDetails) 
-                let insertFranchiser = await Franchiser.updateOne({
+                let insertFranchiser = await Franchiser.updateOne({_id:franchiserDetails._id},{
                     $set: {
                         name: franchiserDetails.name,
-                        mobileNumber: franchiserDetails.mobileNumber,
                         email: franchiserDetails.email,
-                        companyName: franchiserDetails.companyName,
-                        productName: franchiserDetails.productName,
+                        // companyName: franchiserDetails.companyName,
+                        // productName: franchiserDetails.productName,
                         state: franchiserDetails.state,
                         city: franchiserDetails.city,
                         pinCode: franchiserDetails.pinCode,
+                        bearer_Token : franchiserDetails.bearer_Token,
                         modifiedOn: convertUTCToIST(date),
                         modifiedBy: franchiserDetails.name
                     }

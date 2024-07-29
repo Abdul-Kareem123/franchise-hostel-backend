@@ -99,7 +99,6 @@ export let updateDistributor = async (req, res, next) => {
                         mobileNumber: distributorDetails.mobileNumber,
                         address: distributorDetails.address,
                         city: distributorDetails.city,
-                        walletAmount: distributorDetails.walletAmount,
                         modifiedOn: convertUTCToIST(date),
                         modifiedBy: distributorDetails.name
                     }

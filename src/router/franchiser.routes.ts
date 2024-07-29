@@ -19,7 +19,8 @@ router.put('/', //update franchiser
     basicAuthUser,
     checkSession,
     checkRequestBodyParams('_id'),
-    updateFranchiser);
+    updateFranchiser
+);
 
 router.get('/singleFranchiser', //get single distributor
     basicAuthUser,

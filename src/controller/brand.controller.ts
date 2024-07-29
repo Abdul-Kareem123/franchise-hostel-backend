@@ -1,9 +1,9 @@
 import { validationResult } from 'express-validator';
-import { Distributor, DistributorDocument } from '../models/distributor.model';
 import { User, UserDocument } from '../models/user.model';
 import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
+import { Franchiser , FranchiserDocument } from '../models/franchiser.model';
 
 const activity = 'BRAND';
 
@@ -19,7 +19,7 @@ export const createBrand = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const brandData = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
+            const brandData = await Franchiser.findOne({$and:[{isDeleted:false},{ _id: req.body.franchiserId }]})
             if (!brandData) {
                 response(req, res, activity, 'Level-3', 'Save-Brand', true, 422, {}, clientError.user.userDontExist);
             } else {
@@ -113,6 +113,7 @@ export const updateBrand = async (req, res, next) => {
                     $set: {
                         brandName: brandData.brandName,
                         category: brandData.category,
+                        subCategory: brandData.subCategory,
                         imageUrl: brandData.imageUrl,
                         investmentAmount: brandData.investmentAmount,
                         modifiedOn: convertUTCToIST(date),
