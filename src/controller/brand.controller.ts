@@ -85,7 +85,7 @@ export const getBrandsByDistributor = async (req, res, next) => {
  */
 export const getSingleBrand= async (req, res, next) => {
     try {
-        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.query._id }] });
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.query.distributorId }] });
         response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
     } catch (error) {
         response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);

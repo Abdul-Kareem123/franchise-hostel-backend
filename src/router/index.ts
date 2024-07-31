@@ -15,6 +15,8 @@ import payment from './payment.routes';
 
 router.use('/distributor',Distributor); //   tu
 router.use('/franchiser',Franchiser);  //   tu
+
+router.use('/franchise',Franchise)
 router.use('/user',User);     // tu
 router.use('/brand',Brand);  //  brand and franchise or same  convert in single 
 

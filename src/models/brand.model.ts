@@ -165,7 +165,7 @@ const BrandSchema = new mongoose.Schema({
     videoLink: { type: String },
     gstNumber: { type: String },
     modeOfPayment: { type: String },
-    Amount: { type: Number, default: 0 },
+    Amount: { type: Number, default: 500 },
     coinDeduct: { type: Number },
     userList: [{
         userName: { type: String },

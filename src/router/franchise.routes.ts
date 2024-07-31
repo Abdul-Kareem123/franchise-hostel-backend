@@ -11,7 +11,7 @@ router.post ('/', //create franchise
     checkRequestBodyParams('distributorId'),
     createFranchise);
 
-router.get('/', //get all franchise
+router.get('/allfranchise', //get all franchise
     basicAuthUser,
     getAllFranchise);
 
