@@ -1,4 +1,5 @@
-import { validationResult } from 'express-validator';
+
+ import { validationResult } from 'express-validator';
 import { User, UserDocument } from '../models/user.model';
 import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
@@ -62,7 +63,7 @@ export const getBrands = async (req, res, next) => {
  * @date 01-05-2024
  * @param {Object} req 
  * @param {Object} res 
- * @param {Function} next  
+ * @param {Function} next  98 
  * @description This Function is used to get Brands by distributor.
  */
 export const getBrandsByDistributor = async (req, res, next) => {
