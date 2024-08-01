@@ -85,9 +85,9 @@ export const getBrandsByDistributor = async (req, res, next) => {
  */
 export const getSingleBrand= async (req, res, next) => {
     try {
-        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.query.distributorId }] });
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.query._id }] });
         response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
-    } catch (error) {
+    } catch (error) { 
         response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
     }
 }
@@ -221,5 +221,27 @@ export const coinsDeduction = async (req, res, next) => {
         }
     } else {
         response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+    }
+}
+
+
+/**
+ * @author  Kaaviyan G S
+ * @date 31-07-2024
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next  
+ * @description This Function is used to get Brands Details
+ */
+export const getBrandDetails= async (req, res, next) => {
+    try {
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.body._id }] });
+        console.log(brands);
+        
+        const data = await Brand.findOne({_id:req.body._id},{Amount:1 , _id:1 ,imageUrl:1})
+        console.log(data);
+        response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, data, clientError.success.fetchedSuccessfully);
+    } catch (error) { 
+        response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
     }
 }
