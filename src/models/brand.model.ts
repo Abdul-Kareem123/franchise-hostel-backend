@@ -174,7 +174,7 @@ const BrandSchema = new mongoose.Schema({
     companyBanner:{type:String},
     companyImages1:{type:String},
     companyImages2:{type:String},
-    companyImages3:{type:String},
+    companyImages3:{type:String},   
     status: { type: Number, default: 1 },
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date },

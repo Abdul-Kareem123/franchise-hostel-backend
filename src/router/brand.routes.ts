@@ -22,7 +22,7 @@ router.get('/getSingleBrand',
 
 router.get('/getBrandsByDistributorId', //get brands by Distributor Id
     basicAuthUser, 
-    checkQuery('distributorId'), 
+    checkRequestBodyParams('distributorId'), 
     getBrandsByDistributor);
 
 router.put('/', //update brand
@@ -54,7 +54,7 @@ router.put('/Coins', //update brand
 router.get('/brandDetails', // brand details
         basicAuthUser,
         //checkSession,
-        checkRequestBodyParams('_id'),
+        checkRequestBodyParams('distributorId'),
         getBrandDetails
     )   
 

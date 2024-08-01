@@ -5,6 +5,7 @@ import { User, UserDocument } from '../models/user.model';
 import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
+import { log } from 'console';
 
 const activity = 'BRAND';
 
@@ -20,16 +21,20 @@ export const createBrand = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const brandData = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
+            const distributer = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
+            console.log(distributer);
+            const brandData = await Brand.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
             if (!brandData) {
-                response(req, res, activity, 'Level-3', 'Save-Brand', true, 422, {}, clientError.user.userDontExist);
+                    const brandData : BrandDocument = req.body;
+                    const date = new Date();
+                    brandData.createdOn = convertUTCToIST(date);
+                    const createBrand = new Brand(brandData);
+                    const result = await createBrand.save();
+                    response(req, res, activity, 'Level-2', 'Save-Brand', true, 200, result, clientError.success.success);
+             
             } else {
-                const brandData : BrandDocument = req.body;
-                const date = new Date();
-                brandData.createdOn = convertUTCToIST(date);
-                const createBrand = new Brand(brandData);
-                const result = await createBrand.save();
-                response(req, res, activity, 'Level-2', 'Save-Brand', true, 200, result, clientError.success.success);
+                response(req, res, activity, 'Level-3', 'Save-Brand', true, 422, {}, clientError.user.userDontExist);
+
             }
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Save-Brand', false, 500, {}, errorMessage.internalServer, error.message);
@@ -68,7 +73,7 @@ export const getBrands = async (req, res, next) => {
  */
 export const getBrandsByDistributor = async (req, res, next) => {
     try {
-        const brands = await Brand.find({ $and:[{isDeleted:false},{ distributorId: req.query.distributorId }] });
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ distributorId: req.body.distributorId }] });
         response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
     } catch (error) {
         response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
@@ -235,12 +240,10 @@ export const coinsDeduction = async (req, res, next) => {
  */
 export const getBrandDetails= async (req, res, next) => {
     try {
-        const brands = await Brand.find({ $and:[{isDeleted:false},{ _id: req.body._id }] });
+       
+        const brands = await Brand.find({distributorId:req.body.distributorId},{Amount:1})
         console.log(brands);
-        
-        const data = await Brand.findOne({_id:req.body._id},{Amount:1 , _id:1 ,imageUrl:1})
-        console.log(data);
-        response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, data, clientError.success.fetchedSuccessfully);
+        response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
     } catch (error) { 
         response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
     }
