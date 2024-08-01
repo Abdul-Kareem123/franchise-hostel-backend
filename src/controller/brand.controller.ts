@@ -68,9 +68,9 @@ export const getBrands = async (req, res, next) => {
  * @param {Function} next  98 
  * @description This Function is used to get Brands by distributor.
  */
-export const getBrandsByDistributor = async (req, res, next) => {
+export const getBrandsByFranchiser = async (req, res, next) => {
     try {
-        const brands = await Brand.find({ $and:[{isDeleted:false},{ distributorId: req.body.distributorId }] });
+        const brands = await Brand.find({ $and:[{isDeleted:false},{ distributorId: req.body.franchiserId }] });
         response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
     } catch (error) {
         response(req, res, activity, 'Level-3', 'Get-Brands', false, 500, {}, errorMessage.internalServer, error.message);
@@ -244,7 +244,7 @@ export const coinsDeduction = async (req, res, next) => {
 export const getBrandDetails= async (req, res, next) => {
     try {
        
-        const brands = await Brand.find({distributorId:req.body.distributorId},{Amount:1})
+        const brands = await Brand.find({franchiserId:req.body.franchiserId},{Amount:1})
         console.log(brands);
         response(req, res, activity, 'Level-2', 'Get-Brands', true, 200, brands, clientError.success.fetchedSuccessfully);
     } catch (error) { 
