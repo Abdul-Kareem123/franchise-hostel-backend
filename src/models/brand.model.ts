@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface BrandDocument extends mongoose.Document {
     _id?: any;
-    distributorId?: any;
+    franchiserId?: any;
     brandName?: string;
     companyName?: string;
     ownerName?: string;
@@ -91,7 +91,7 @@ export interface BrandDocument extends mongoose.Document {
 
 const BrandSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
-    distributorId: { type: mongoose.Types.ObjectId, ref: "Distributor" },
+    franchiserId: { type: mongoose.Types.ObjectId, ref: "Franchise" },
     brandName: { type: String },
     companyName: { type: String },
     ownerName: { type: String },

@@ -78,6 +78,7 @@ export let clientError = Object.freeze({
         mobileExist: "User already exist for given mobile number",
         mobileNotExist: "No User found for this mobile number",
         alreadyVerifiedEmail: "Your Email is already verified!",
+        
         phoneNotVerified: 'Your email is not verified !',
         mobileOrEmail:"User already exist for given mobile number or email"
     },

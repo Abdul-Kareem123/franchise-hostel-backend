@@ -1,11 +1,10 @@
-import { validationResult } from 'express-validator';
-import { Distributor, DistributorDocument } from '../models/distributor.model';
-import { Franchise } from '../models/franchise.model';
+
+ import { validationResult } from 'express-validator';
 import { User, UserDocument } from '../models/user.model';
 import { Brand, BrandDocument } from '../models/brand.model';
 import { response, convertUTCToIST } from '../helper/commonResponseHandler';
 import { errorMessage, clientError } from '../helper/ErrorMessage';
-import { log } from 'console';
+import { Franchiser , FranchiserDocument } from '../models/franchiser.model';
 
 const activity = 'BRAND';
 
@@ -21,9 +20,7 @@ export const createBrand = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         try {
-            const distributer = await Distributor.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
-            console.log(distributer);
-            const brandData = await Brand.findOne({$and:[{isDeleted:false},{ _id: req.body.distributorId }]})
+            const brandData = await Franchiser.findOne({$and:[{isDeleted:false},{ _id: req.body.franchiserId }]})
             if (!brandData) {
                     const brandData : BrandDocument = req.body;
                     const date = new Date();
@@ -68,7 +65,7 @@ export const getBrands = async (req, res, next) => {
  * @date 01-05-2024
  * @param {Object} req 
  * @param {Object} res 
- * @param {Function} next  
+ * @param {Function} next  98 
  * @description This Function is used to get Brands by distributor.
  */
 export const getBrandsByDistributor = async (req, res, next) => {
@@ -119,6 +116,7 @@ export const updateBrand = async (req, res, next) => {
                     $set: {
                         brandName: brandData.brandName,
                         category: brandData.category,
+                        subCategory: brandData.subCategory,
                         imageUrl: brandData.imageUrl,
                         investmentAmount: brandData.investmentAmount,
                         modifiedOn: convertUTCToIST(date),
@@ -144,6 +142,7 @@ export const updateBrand = async (req, res, next) => {
  * @param {Function} next  
  * @description This Function is used to update brand.
  */
+
 export const updateBrandAmount = async (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -177,13 +176,15 @@ export const updateBrandAmount = async (req, res, next) => {
  * @param {Object} req 
  * @param {Object} res 
  * @param {Function} next  
- * @description This Function is used to delete brand.
+ * @descrip0tion This Function is used to delete brand.
  */
 export const deleteBrand = async (req, res, next) => {
     try {
+        
         const brandData = await Brand.findOne({$and:[{isDeleted:false},{ _id: req.query._id }]})
         if (!brandData) {
-            response(req, res, activity, 'Level-3', 'Delete-Brand', true, 422, {}, clientError.Brand.brandNotExist);
+            response(req,
+                 res, activity, 'Level-3', 'Delete-Brand', true, 422, {}, clientError.Brand.brandNotExist);
         } else {
             const date = new Date();
             const brand = await Brand.findByIdAndUpdate({ _id: brandData._id }, {
@@ -223,9 +224,11 @@ export const coinsDeduction = async (req, res, next) => {
                  response(req, res, activity, 'Level-2', 'Update-Coins-Deduction', true, 200, data, clientError.success.updateSuccess);
         } catch (error) {
             response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 500, {}, errorMessage.internalServer, error.message);
+      
         }
     } else {
         response(req, res, activity, 'Level-3', 'Update-Coins-Deduction', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
+   
     }
 }
 

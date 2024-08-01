@@ -28,7 +28,7 @@ export const createFranchise = async (req,res,next) => {
             else {
                 const franchiseData : FranchiseDocument = req.body;
                 const date = new Date(); 
-                franchiseData.createdOn = convertUTCToIST(date);
+                franchiseData.createdOn = convertUTCToIST(date);                                                                                        n
                 const createFranchise = new Franchise(franchiseData);
                 let insertFranchise = await createFranchise.save();
                 response(req,res,activity,'Level-2','Save-Franchise',true,200,insertFranchise,clientError.success.savedSuccessfully);
@@ -36,7 +36,7 @@ export const createFranchise = async (req,res,next) => {
         } catch (err: any) {
             response(req,res,activity,'Level-3','Save-Franchise',false,500,{},errorMessage.internalServer, err.message);
         }
-    } else {
+    } else {  
         response(req, res, activity,  'Level-3','Save-Franchise', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
     }
 }

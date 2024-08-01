@@ -7,8 +7,8 @@ import { checkQuery, checkRequestBodyParams } from "../middleware/Validators";
 
 router.post('/', //create brand
     basicAuthUser,
-    // checkSession,
-    checkRequestBodyParams('distributorId'),
+    checkSession,
+    checkRequestBodyParams('franchiserId'),
     createBrand);
 
 router.get('/', //get brands
