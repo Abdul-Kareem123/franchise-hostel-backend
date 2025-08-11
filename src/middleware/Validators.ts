@@ -44,3 +44,37 @@ export let checkRequestBodyParams = (val) => {
         .trim()
         .exists().withMessage(ErrorMessage.general.required)
 }
+
+/**
+ * @author Abdul
+ * @date  07-08-2025
+ * @description Functions to check for the Validation of body arguments
+ */
+
+export const checkRequiredString = (field: string, errorKey: keyof typeof ErrorMessage) => {
+  const error = ErrorMessage[errorKey];
+  return body(field)
+    .notEmpty().withMessage(error.required)
+    .isString().withMessage(error.validation);
+};
+
+export const checkRequiredEmail = (field: string) => {
+  return body(field)
+    .notEmpty().withMessage(ErrorMessage.email.required)
+    .isEmail().withMessage(ErrorMessage.email.validation);
+};
+
+export const checkRequiredDate = (field: string) => {
+  return body(field)
+    .notEmpty().withMessage(ErrorMessage.date.required)
+    .custom(value => !isNaN(Date.parse(value)))
+    .withMessage(ErrorMessage.date.validation);
+};
+
+export const bookingValidationRules = [
+  checkRequiredString('customerName', 'name'),
+  checkRequiredEmail('customerEmail'),
+  checkRequiredString('room', 'id'),
+  checkRequiredDate('startDate'),
+  checkRequiredDate('endDate'),
+];

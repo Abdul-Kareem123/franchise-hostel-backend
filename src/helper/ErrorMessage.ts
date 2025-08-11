@@ -26,6 +26,10 @@ export let ErrorMessage = {
     general: {
         required: 'Field is Required',
         validation: 'Not a valid value'
+    },
+    date: {
+        required: 'Field is Required',
+        validation: 'Invalid date',
     }
 }
 

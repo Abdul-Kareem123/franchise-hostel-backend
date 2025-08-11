@@ -12,6 +12,13 @@ import Franchiser from './franchiser.routes'
 import User from './user.routes'
 import Proposal from './proposal.routes'
 import payment from './payment.routes';
+import roomRoutes from './room.routes';
+import bookingRoutes from './booking.routes';
+import ownerRoutes from './owner.routes';
+import authRoutes from './auth.routes';
+import dashboardRoutes from './dashboard.routes';
+import buildingRoutes from './building.routes';
+
 
 router.use('/distributor',Distributor); //   tu
 
@@ -26,5 +33,12 @@ router.use('/contactUs',ContactUs);
 router.use('/category',Category);
 router.use('/proposal',Proposal);
 router.use('/payment',payment);
+router.use('/rooms', roomRoutes);
+router.use('/booking', bookingRoutes);
+router.use('/owner', ownerRoutes);
+router.use('/auth', authRoutes);
+router.use('/dashboard', dashboardRoutes);
+router.use('/buildings', buildingRoutes);
+
 
 export default router ;
