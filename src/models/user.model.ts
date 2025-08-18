@@ -18,6 +18,7 @@ export interface UserDocument extends mongoose.Document {
     createdBy?: String;
     modifiedOn?: Date;
     modifiedBy?: String;
+    role?: String;
 }
  
 const userSchema = new mongoose.Schema({
@@ -42,7 +43,9 @@ const userSchema = new mongoose.Schema({
     createdOn: { type: Date },
     createdBy: { type: String },
     modifiedOn: { type: Date },
-    modifiedBy: { type: String }
+    modifiedBy: { type: String },
+    role: { type: String, enum: ['owner', 'admin', 'user'], default: 'user' }
+
 })
 
 export const User = mongoose.model("User", userSchema);

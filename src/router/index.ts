@@ -15,7 +15,7 @@ import payment from './payment.routes';
 import roomRoutes from './room.routes';
 import bookingRoutes from './booking.routes';
 import ownerRoutes from './owner.routes';
-import authRoutes from './auth.routes';
+import ownerLoginRoutes from './ownerLogin.routes';
 import dashboardRoutes from './dashboard.routes';
 import buildingRoutes from './building.routes';
 
@@ -36,7 +36,7 @@ router.use('/payment',payment);
 router.use('/rooms', roomRoutes);
 router.use('/booking', bookingRoutes);
 router.use('/owner', ownerRoutes);
-router.use('/auth', authRoutes);
+router.use('/auth', ownerLoginRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/buildings', buildingRoutes);
 

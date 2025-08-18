@@ -7,7 +7,7 @@ import { clientError,errorMessage } from "../helper/ErrorMessage";
 
 let activity = 'room-availablity';
 
-export const checkAvailability = async (req: Request, res: Response) => {
+export const checkAvailability = async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -26,13 +26,13 @@ export const checkAvailability = async (req: Request, res: Response) => {
     const available = !overlappingBooking;
 
     return response(req, res, activity, 'Level-2', 'room-overlap', true, 200, { available }, clientError.success.success);
-  } catch (err) {
-    return response(req, res, activity, 'Level-3', 'room-overlap', false, 500, { available: false }, err.message);
+  } catch (error: any) {
+    return response(req, res, activity, 'Level-3', 'room-overlap', false, 500, { available: false }, error.message);
   }
 };
 
 
-export const getAllAvailableRooms = async (req: Request, res: Response) => {
+export const getAllAvailableRooms = async (req, res) => {
   try {
     const rooms = await Room.find({ isAvailable: true })
       .populate({

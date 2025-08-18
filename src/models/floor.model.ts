@@ -1,15 +1,15 @@
-import { Schema, model, Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export interface IFloor extends Document {
-  number: number;
-  rooms: Schema.Types.ObjectId[];
-  building: Schema.Types.ObjectId;
+export interface IFloor extends mongoose.Document {
+  number?: number;
+  rooms?: mongoose.Types.ObjectId[];
+  building?: mongoose.Types.ObjectId;
 }
 
-const floorSchema = new Schema<IFloor>({
+const floorSchema = new mongoose.Schema({
   number: { type: Number, required: true },
-  rooms: [{ type: Schema.Types.ObjectId, ref: 'Room' }],
-  building: [{ type: Schema.Types.ObjectId, ref: 'Building' }]
+  rooms: [{ type: mongoose.Types.ObjectId, ref: 'Room' }],
+  building: [{ type: mongoose.Types.ObjectId, ref: 'Building' }]
 });
 
-export default model<IFloor>('Floor', floorSchema);
+export default mongoose.model<IFloor>('Floor', floorSchema);

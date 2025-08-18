@@ -6,7 +6,7 @@ import { clientError,errorMessage } from "../helper/ErrorMessage";
 
 let activity = 'room-booking';
 
-export const createBooking = async (req: Request, res: Response) => {
+export const createBooking = async (req, res) => {
   const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return response(req, res, activity, 'Level-1', 'user-room-booking', false, 422, {}, errorMessage.fieldValidation, JSON.stringify(errors.mapped()));
@@ -29,12 +29,24 @@ export const createBooking = async (req: Request, res: Response) => {
       customerEmail,
       room,
       startDate,
-      endDate
+      endDate,
+      status: 'booked'
     });
 
     await booking.save();
-    return response(req, res, activity, 'Level-2', 'room-booked', true, 201, booking, clientError.success.savedSuccessfully);
-  } catch (error) {
-    return response(req, res, activity, 'Level-3', 'user-room-booking', false, 500, { error: 'Error creating booking' }, error.message);
+    response(req, res, activity, 'Level-2', 'room-booked', true, 201, booking, clientError.success.savedSuccessfully);
+  } catch (error: any) {
+    response(req, res, activity, 'Level-3', 'user-room-booking', false, 500, { error: 'Error creating booking' }, error.message);
   }
 };
+
+activity = 'customers-data'
+
+export const getAllCustomersData = async (req, res) => {
+  try {
+    const data = await Booking.find().populate('room', 'sharingType rent isAvailable');
+    response(req, res, activity, 'Level-2', 'all-customers', true, 201, data, clientError.success.fetchedSuccessfully);
+  } catch (error: any) {
+    response(req, res, activity, 'Level-3', 'all-customers', false, 500, { error: 'Error fetching customers data' }, error.message);    
+  }
+}

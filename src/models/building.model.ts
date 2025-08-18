@@ -1,17 +1,27 @@
-import { Schema, model, Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export interface IBuilding extends Document {
-  name: string;
-  address: string;
-  floors: Schema.Types.ObjectId[];
-  owner: Schema.Types.ObjectId;
+export interface IBuilding extends mongoose.Document {
+  name?: string;
+  address?: string;
+  isDeleted?: boolean;
+  floors: mongoose.Types.ObjectId[];
+  owner: mongoose.Types.ObjectId;
+  createdOn?: Date;
+  createdBy?: string;
+  modifiedOn?: Date;
+  modifiedBy?: string;
 }
 
-const buildingSchema = new Schema<IBuilding>({
+const buildingSchema = new mongoose.Schema({
   name: { type: String, required: true },
   address: { type: String },
-  floors: [{ type: Schema.Types.ObjectId, ref: 'Floor' }],
-  owner: { type: Schema.Types.ObjectId, ref: 'Owner' }
+  floors: [{ type: mongoose.Types.ObjectId, ref: 'Floor' }],
+  owner: { type: mongoose.Types.ObjectId, ref: 'Owner' },
+  isDeleted: { type: Boolean, default: false },
+  createdOn: { type: Date },
+  createdBy: { type: String },
+  modifiedOn: { type: Date },
+  modifiedBy: { type: String }
 });
 
-export default model<IBuilding>('Building', buildingSchema);
+export default mongoose.model<IBuilding>('Building', buildingSchema);
