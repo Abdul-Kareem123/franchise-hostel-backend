@@ -60,16 +60,14 @@ export const updateRoomAvailability = async (req, res) => {
       room.availableFrom = availableFrom ? new Date(availableFrom) : now,
       room.availableTo = availableTo ? new Date(availableTo) : null;
 
-      const checking = await Booking.findOneAndUpdate(
-        {room: roomId, status: 'cancelled'},
+      const checking = await Booking.updateMany(
+        {room: roomId, status: 'booked'},
         {
           $set: {
             status: 'cancelled',
-            startDate: now,
-            endDate: null
+            endDate: now
           }
-        },
-        { new: true }
+        }
       );
     } else {
         room.isAvailable = false,

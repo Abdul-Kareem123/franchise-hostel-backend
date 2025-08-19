@@ -1,6 +1,5 @@
 import Owner from '../models/owner.model';
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
 import * as TokenManager from '../utils/tokenManager';
 import { validationResult } from 'express-validator';
 import { response } from "../helper/commonResponseHandler";
