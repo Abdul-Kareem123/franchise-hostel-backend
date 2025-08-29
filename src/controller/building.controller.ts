@@ -100,7 +100,7 @@ export const deleteBuildingById = async (req, res, next) => {
         return response(req, res, activity, 'Level-2', 'building-data-delete', false, 403, { message: 'Not authorized' }, errorMessage.cantChangestatus);
       }
     }
-    const deletedBuilding = await Building.findByIdAndDelete({ _id: id }, {
+    const deletedBuilding = await Building.findByIdAndUpdate({ _id: id }, {
       $set: {
         isDeleted: true,
         modifiedOn: convertUTCToIST(date),

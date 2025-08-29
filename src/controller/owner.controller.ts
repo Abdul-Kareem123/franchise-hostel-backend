@@ -71,15 +71,7 @@ export const updateRoomAvailability = async (req, res) => {
       );
     } else {
         room.isAvailable = false,
-        room.availableTo = availableTo || now,
-        await Booking.create({
-          customerName: req.body?.customerName || null,
-          customerEmail: req.body?.customerEmail || 'system@auto.com',
-          room: room._id,
-          startDate: now,
-          endDate: room.availableTo,
-          status: 'booked',
-        })
+        room.availableTo = availableTo || now
     }
     await room.save();
     response(req, res, activity, 'Level-2', 'updated-roomAvailability', true, 200, { message: 'Room availability updated', room }, clientError.success.savedSuccessfully);
